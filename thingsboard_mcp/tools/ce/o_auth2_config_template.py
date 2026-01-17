@@ -1,0 +1,70 @@
+import json
+from typing import Optional
+import tb_rest_client.models.models_ce as models
+from ..shared import get_client, deserialize_param, format_response, ApiException
+
+
+def delete_client_registration_template(client_registration_template_id_json: str) -> str:
+    """
+    Delete OAuth2 client registration template by id (deleteClientRegistrationTemplate)  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+Client registration template is OAuth2 provider configuration template with default settings for registering new OAuth2 clients  # noqa: E501
+    """
+    try:
+        client = get_client()
+        result = client.delete_client_registration_template(client_registration_template_id=deserialize_param(client_registration_template_id_json, 'EntityId'))
+        return format_response(result)
+    except ApiException as e:
+        if e.status == 403:
+            return "PERMISSION DENIED: You do not have permission to perform 'delete_client_registration_template'."
+        if e.status == 401:
+            return "AUTH ERROR: Credentials invalid or session expired. Check TB_USERNAME/TB_PASSWORD."
+        return f"API Error {e.status}: {e.reason}\n{e.body}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+def get_client_registration_templates1() -> str:
+    """
+    Get the list of all OAuth2 client registration templates (getClientRegistrationTemplates)  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+Client registration template is OAuth2 provider configuration template with default settings for registering new OAuth2 clients  # noqa: E501
+    """
+    try:
+        client = get_client()
+        result = client.get_client_registration_templates1()
+        return format_response(result)
+    except ApiException as e:
+        if e.status == 403:
+            return "PERMISSION DENIED: You do not have permission to perform 'get_client_registration_templates1'."
+        if e.status == 401:
+            return "AUTH ERROR: Credentials invalid or session expired. Check TB_USERNAME/TB_PASSWORD."
+        return f"API Error {e.status}: {e.reason}\n{e.body}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+def save_client_registration_template(body_json: str = None) -> str:
+    """
+    Create or update OAuth2 client registration template (saveClientRegistrationTemplate)  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+Client registration template is OAuth2 provider configuration template with default settings for registering new OAuth2 clients  # noqa: E501
+    """
+    try:
+        client = get_client()
+        result = client.save_client_registration_template(body=deserialize_param(body_json, 'OAuth2ClientRegistrationTemplate'))
+        return format_response(result)
+    except ApiException as e:
+        if e.status == 403:
+            return "PERMISSION DENIED: You do not have permission to perform 'save_client_registration_template'."
+        if e.status == 401:
+            return "AUTH ERROR: Credentials invalid or session expired. Check TB_USERNAME/TB_PASSWORD."
+        return f"API Error {e.status}: {e.reason}\n{e.body}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+def register(mcp):
+    mcp.tool()( delete_client_registration_template )
+    mcp.tool()( get_client_registration_templates1 )
+    mcp.tool()( save_client_registration_template )
