@@ -30,7 +30,6 @@ class IgnoredMeta:
     details: str
 
 def force_import_submodules(package):
-    """Recursively imports submodules to ensure classes are loaded."""
     if hasattr(package, "__path__"):
         for _, name, _ in pkgutil.walk_packages(package.__path__, package.__name__ + "."):
             try: importlib.import_module(name)
@@ -38,17 +37,22 @@ def force_import_submodules(package):
 
 def load_edition_components(suffix: str):
     try:
+        # 1. Load Client
         client_mod = importlib.import_module(f"{LIB_NAME}.rest_client_{suffix}")
         ClientClass = getattr(client_mod, f"RestClient{suffix.upper()}")
         
+        # 2. Load API
         api_pkg = importlib.import_module(f"{LIB_NAME}.api.api_{suffix}")
         force_import_submodules(api_pkg)
         
+        # 3. Load Models (Actual Module)
         model_pkg_name = f"{LIB_NAME}.models.models_{suffix}"
-        return ClientClass, api_pkg, model_pkg_name
+        model_pkg = importlib.import_module(model_pkg_name)
+        
+        return ClientClass, api_pkg, model_pkg, model_pkg_name
     except ImportError as e:
         print(f"Error loading {suffix}: {e}")
-        return None, None, None
+        return None, None, None, None
 
 def discover_editions():
     try:
@@ -64,7 +68,45 @@ def discover_editions():
     except: return []
 
 # ==========================================
-# 2. INTELLIGENT TRACER
+# 2. MODEL INSPECTOR (THE NEW FEATURE)
+# ==========================================
+
+class ModelInspector:
+    """Reflects on SDK Model classes to generate JSON schemas for docstrings."""
+    def __init__(self, model_pkg):
+        self.model_pkg = model_pkg
+
+    def get_model_schema_doc(self, model_name: str) -> str:
+        """Generates a markdown list of fields for a given model."""
+        if not hasattr(self.model_pkg, model_name):
+            return ""
+
+        cls = getattr(self.model_pkg, model_name)
+        
+        # Strategy 1: swagger_types (Best for Generated Clients)
+        if hasattr(cls, 'swagger_types'):
+            props = cls.swagger_types
+            lines = [f"\n    Expected JSON Structure ({model_name}):"]
+            for field_name, field_type in props.items():
+                # Clean up type name (e.g., 'list[str]' -> 'List[String]')
+                safe_type = str(field_type).replace("'", "")
+                lines.append(f"    - `{field_name}` ({safe_type})")
+            return "\n".join(lines)
+        
+        # Strategy 2: __init__ inspection (Fallback)
+        try:
+            sig = inspect.signature(cls.__init__)
+            lines = [f"\n    Expected JSON Structure ({model_name}):"]
+            for name, param in sig.parameters.items():
+                if name == "self": continue
+                t = str(param.annotation).replace("typing.", "").replace("Optional", "").strip("[]")
+                lines.append(f"    - `{name}` ({t})")
+            return "\n".join(lines)
+        except:
+            return ""
+
+# ==========================================
+# 3. CONTROLLER TRACER
 # ==========================================
 
 class EditionTracer:
@@ -123,6 +165,7 @@ class EditionTracer:
                 real_method = getattr(ctrl_cls, target_method)
                 raw_doc = real_method.__doc__
                 if raw_doc:
+                    # Clean up standard Python docs
                     cleaned = raw_doc.split("This method makes a synchronous")[0]
                     cleaned = cleaned.split(">>> thread = api.")[0]
                     cleaned = cleaned.strip()
@@ -140,7 +183,7 @@ class EditionTracer:
             return "ERROR", None, None, str(e)
 
 # ==========================================
-# 3. GENERATION LOGIC
+# 4. GENERATOR LOGIC
 # ==========================================
 
 PRIMITIVES = {"str", "int", "bool", "float", "None", "NoneType", "Any", "dict", "list", "object", "bytes"}
@@ -155,17 +198,16 @@ def get_type_str(t):
         return w
     return "str"
 
-def generate_tool_code(name: str, func: callable, tracer: EditionTracer) -> Tuple[Optional[str], str, Any]:
+def generate_tool_code(name: str, func: callable, tracer: EditionTracer, inspector: ModelInspector) -> Tuple[Optional[str], str, Any]:
     outcome, group, docstring, error_details = tracer.trace_method(func)
     
     if outcome != "SUCCESS":
         return None, None, IgnoredMeta(name, outcome, error_details)
 
-    docstring_safe = docstring.replace('"""', "'''").replace("\\", "\\\\")
-    
     sig = inspect.signature(func)
     args_def, args_call, sig_desc = [], [], []
-    
+    schema_docs = [] # Collect schema info here
+
     for pname, param in sig.parameters.items():
         if pname == 'self': continue
         type_name = get_type_str(param.annotation)
@@ -183,6 +225,13 @@ def generate_tool_code(name: str, func: callable, tracer: EditionTracer) -> Tupl
             args_def.append(f"{pname}_json: str{default_val}")
             args_call.append(f"{pname}=deserialize_param({pname}_json, '{type_name}')")
             sig_desc.append(f"`{pname}_json` ({type_name})")
+            
+            # --- INTELLIGENT DOC INJECTION ---
+            model_doc = inspector.get_model_schema_doc(type_name)
+            if model_doc:
+                schema_docs.append(model_doc)
+            # ---------------------------------
+
         elif is_json:
             args_def.append(f"{pname}_json: str{default_val}")
             args_call.append(f"{pname}=json.loads({pname}_json) if {pname}_json else None")
@@ -197,6 +246,14 @@ def generate_tool_code(name: str, func: callable, tracer: EditionTracer) -> Tupl
             args_def.append(f"{pname}: {py_type}{default_val}")
             args_call.append(f"{pname}={pname}")
             sig_desc.append(f"`{pname}`")
+
+    # Combine Original Docs + New Schema Docs
+    full_docstring = docstring
+    if schema_docs:
+        full_docstring += "\n\n    ---------------------------"
+        full_docstring += "".join(schema_docs)
+    
+    docstring_safe = full_docstring.replace('"""', "'''").replace("\\", "\\\\")
 
     code = f"""
 def {name}({", ".join(args_def)}) -> str:
@@ -224,7 +281,7 @@ def {name}({", ".join(args_def)}) -> str:
 
 
 # ==========================================
-# 4. REPORT WRITER
+# 5. REPORT WRITER (LINKED TOC)
 # ==========================================
 
 def write_markdown_report(suffix, tools: List[ToolMeta], ignored: List[IgnoredMeta]):
@@ -234,7 +291,6 @@ def write_markdown_report(suffix, tools: List[ToolMeta], ignored: List[IgnoredMe
         if t.group not in grouped: grouped[t.group] = []
         grouped[t.group].append(t)
     
-    # Sort groups for consistent TOC
     sorted_groups = sorted(grouped.keys())
     top_anchor = f"thingsboard-mcp-tools-{suffix.lower()}"
 
@@ -244,7 +300,6 @@ def write_markdown_report(suffix, tools: List[ToolMeta], ignored: List[IgnoredMe
         f.write(f"- **Total Tools:** {len(tools)}\n")
         f.write(f"- **Tool Categories:** {len(grouped)}\n\n")
         
-        # TOC
         f.write("## 📑 Table of Contents\n")
         for group in sorted_groups:
             title = group.replace("_", " ").title() + " Tools"
@@ -254,7 +309,6 @@ def write_markdown_report(suffix, tools: List[ToolMeta], ignored: List[IgnoredMe
         
         f.write("---\n")
 
-        # Groups
         for group in sorted_groups:
             title = group.replace("_", " ").title() + " Tools"
             f.write(f"## {title}\n\n")
@@ -264,7 +318,6 @@ def write_markdown_report(suffix, tools: List[ToolMeta], ignored: List[IgnoredMe
                 sig = t.signature.replace("|", "&#124;")
                 desc = t.desc.replace("|", "&#124;")
                 f.write(f"| `{t.name}` | {desc} | {sig} |\n")
-            # Navigate back to main title
             f.write(f"\n[⬆ Back to Top](#{top_anchor})\n\n")
             
         f.write("## 🚫 Ignored Methods\n\n")
@@ -275,17 +328,17 @@ def write_markdown_report(suffix, tools: List[ToolMeta], ignored: List[IgnoredMe
             
     print(f" > Report generated: {filename}")
 
-
 # ==========================================
-# 5. EXECUTION
+# 6. EXECUTION
 # ==========================================
 
 def process_edition(suffix: str):
     print(f"--- Processing Edition: {suffix.upper()} ---")
-    ClientClass, api_pkg, model_pkg_name = load_edition_components(suffix)
+    ClientClass, api_pkg, model_pkg, model_pkg_name = load_edition_components(suffix)
     if not ClientClass: return
 
     tracer = EditionTracer(suffix, ClientClass, api_pkg)
+    inspector = ModelInspector(model_pkg) # Pass model package to inspector
     
     base_path = f"{OUTPUT_DIR}/tools/{suffix}"
     if os.path.exists(base_path): shutil.rmtree(base_path)
@@ -300,15 +353,13 @@ def process_edition(suffix: str):
     
     for name, func in inspect.getmembers(mock_instance, predicate=inspect.ismethod):
         if any(name.startswith(x) for x in IGNORED_PREFIXES): continue
-        
-        # STRICT LAMBDA FILTER
         if name == "<lambda>": continue
-        
         if name in ['login', 'logout', 'token_login', 'get_token', 'run', 'start', 'join', 'is_alive']: 
             ignored_items.append(IgnoredMeta(name, "UTILITY", "Internal SDK Utility"))
             continue
 
-        group, code, meta = generate_tool_code(name, func, tracer)
+        # Generate Code with Intelligent Schema Docs
+        group, code, meta = generate_tool_code(name, func, tracer, inspector)
         
         if group and code:
             if group not in files_content: files_content[group] = []
