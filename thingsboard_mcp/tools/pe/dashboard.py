@@ -9,6 +9,11 @@ def delete_dashboard(dashboard_id_json: str) -> str:
     Delete the Dashboard (deleteDashboard)  # noqa: E501
 
 Delete the Dashboard. Only users with 'TENANT_ADMIN') authority may delete the dashboards.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def export_group_dashboards(entity_group_id_json: str, limit: int) -> str:
     Export Dashboards (exportGroupDashboards)  # noqa: E501
 
 Export the dashboards that belong to specified group id.The Dashboard object is a heavyweight object that contains information about the dashboard (e.g. title, image, assigned customers) and also configuration JSON (e.g. layouts, widgets, entity aliases).  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'READ' permission for specified group.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityGroupId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +79,11 @@ def get_customer_dashboards(customer_id_json: str, page_size: int, page: int, mo
     Get Customer Dashboards (getCustomerDashboards)  # noqa: E501
 
 Returns a page of dashboard info objects owned by the specified customer. The Dashboard Info object contains lightweight information about the dashboard (e.g. title, image, assigned customers) but does not contain the heavyweight configuration JSON. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -109,6 +124,11 @@ def get_dashboard_by_id(dashboard_id_json: str, inline_images: Optional[bool] = 
     Get Dashboard (getDashboardById)  # noqa: E501
 
 Get the dashboard based on 'dashboardId' parameter. The Dashboard object is a heavyweight object that contains information about the dashboard (e.g. title, image, assigned customers) and also configuration JSON (e.g. layouts, widgets, entity aliases).  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -129,6 +149,11 @@ def get_dashboard_info_by_id(dashboard_id_json: str) -> str:
     Get Dashboard Info (getDashboardInfoById)  # noqa: E501
 
 Get the information about the dashboard based on 'dashboardId' parameter. The Dashboard Info object contains lightweight information about the dashboard (e.g. title, image, assigned customers) but does not contain the heavyweight configuration JSON.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -149,6 +174,11 @@ def get_dashboards_by_entity_group_id(entity_group_id_json: str, page_size: int,
     Get dashboards by Entity Group Id (getDashboardsByEntityGroupId)  # noqa: E501
 
 Returns a page of Dashboard objects that belongs to specified Entity Group Id. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'READ' permission for specified group.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityGroupId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -349,6 +379,11 @@ def import_group_dashboards(entity_group_id_json: str, body_json: str = None, ov
     Import Dashboards (importGroupDashboards)  # noqa: E501
 
 Import the dashboards to specified group.The Dashboard object is a heavyweight object that contains information about the dashboard (e.g. title, image, assigned customers) and also configuration JSON (e.g. layouts, widgets, entity aliases).  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'WRITE' permission for specified group.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityGroupId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

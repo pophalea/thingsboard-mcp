@@ -9,6 +9,11 @@ def delete_queue(queue_id_json: str) -> str:
     Delete Queue (deleteQueue)  # noqa: E501
 
 Deletes the Queue.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (QueueId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def get_queue_by_id(queue_id_json: str) -> str:
     Get Queue (getQueueById)  # noqa: E501
 
 Fetch the Queue object based on the provided Queue Id.   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (QueueId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +99,21 @@ def save_queue(service_type: str, body_json: str = None) -> str:
     Create Or Update Queue (saveQueue)  # noqa: E501
 
 Create or update the Queue. When creating queue, platform generates Queue Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). Specify existing Queue id to update the queue. Referencing non-existing Queue Id will cause 'Not Found' error.  Queue name is unique in the scope of sysadmin. Remove 'id', 'tenantId' from the request body example (below) to create new Queue entity.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (Queue):
+    - `id` (QueueId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `name` (str)
+    - `topic` (str)
+    - `poll_interval` (int)
+    - `partitions` (int)
+    - `consumer_per_partition` (bool)
+    - `pack_processing_timeout` (int)
+    - `submit_strategy` (SubmitStrategy)
+    - `processing_strategy` (ProcessingStrategy)
+    - `additional_info` (JsonNode)
     """
     try:
         client = get_client()

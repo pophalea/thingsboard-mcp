@@ -9,6 +9,11 @@ def compare_entity_data_to_version(entity_id_json: str, version_id: str) -> str:
     Compare entity data to version (compareEntityDataToVersion)  # noqa: E501
 
 Returns an object with current entity data and the one at a specific version. Entity data structure is the same as stored in a repository.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def get_entity_data_info(version_id: str, entity_id_json: str) -> str:
     Get entity data info (getEntityDataInfo)  # noqa: E501
 
 Retrieves short info about the remote entity by external id at a concrete version.  Returned entity data info contains following properties: `hasRelations` (whether stored entity data contains relations), `hasAttributes` (contains attributes), `hasCredentials` (whether stored device data has credentials), `hasPermissions` (user group data contains group permission list) and `hasGroupEntities` (entity group data contains group entities).  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -209,6 +219,11 @@ def load_entities_version(body_json: str = None) -> str:
     Load entities version (loadEntitiesVersion)  # noqa: E501
 
 Loads specific version of remote entities (or single entity) by request. Supported entity types: CUSTOMER, ASSET, RULE_CHAIN, DASHBOARD, DEVICE_PROFILE, DEVICE, ENTITY_VIEW, WIDGETS_BUNDLE, CONVERTER, INTEGRATION, ROLE and USER group.  There are multiple types of request. Each of them requires branch name (`branch`) and version id (`versionId`). Request of type `SINGLE_ENTITY` is needed to restore a concrete version of a specific entity. It contains id of a remote entity (`externalEntityId`), internal entity id (`internalEntityId`) and additional configuration (`config`): - `loadRelations` - to update relations list (in case `saveRelations` option was enabled during version creation); - `loadAttributes` - to load entity attributes (if `saveAttributes` config option was enabled); - `loadCredentials` - to update device credentials (if `saveCredentials` option was enabled during version creation); - `loadPermissions` - when loading user group, to update group permission list; - `loadGroupEntities` - when loading an entity group, to load its entities as well; - `autoGenerateIntegrationKey` - if loading integration version, to autogenerate routing key.  An example of such request: ```json {   "type": "SINGLE_ENTITY",      "branch": "dev",   "versionId": "b3c28d722d328324c7c15b0b30047b0c40011cf7",      "externalEntityId": {     "entityType": "DEVICE",     "id": "b7944123-d4f4-11ec-847b-0f432358ab48"   },   "config": {     "loadRelations": false,     "loadAttributes": true,     "loadCredentials": true   } } ```  Another request type (`ENTITY_TYPE`) is needed to load specific version of the whole entity types. It contains a structure with entity types to load and configs for each entity type (`entityTypes`). For each specified entity type, the method will load all remote entities of this type that are present at the version. A config for each entity type contains the same options as in `SINGLE_ENTITY` request type, and additionally contains following options: - `removeOtherEntities` - to remove local entities that are not present on the remote - basically to    overwrite local entity type with the remote one; - `findExistingEntityByName` - when you are loading some remote entities that are not yet present at this tenant,    try to find existing entity by name and update it rather than create new.  Here is an example of the request to completely restore version of the whole device entity type: ```json {   "type": "ENTITY_TYPE",    "branch": "dev",   "versionId": "b3c28d722d328324c7c15b0b30047b0c40011cf7",    "entityTypes": {     "DEVICE": {       "removeOtherEntities": true,       "findExistingEntityByName": false,       "loadRelations": true,       "loadAttributes": true,       "loadCredentials": true     }   } } ```  The response will contain generated request UUID that is to be used to check the status of operation via `getVersionLoadRequestStatus`.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (VersionLoadRequest):
+    - `version_id` (str)
+    - `type` (str)
     """
     try:
         client = get_client()
@@ -229,6 +244,12 @@ def save_entities_version(body_json: str = None) -> str:
     Save entities version (saveEntitiesVersion)  # noqa: E501
 
 Creates a new version of entities (or a single entity) by request. Supported entity types: CUSTOMER, ASSET, RULE_CHAIN, DASHBOARD, DEVICE_PROFILE, DEVICE, ENTITY_VIEW, WIDGETS_BUNDLE, CONVERTER, INTEGRATION, ROLE and USER group.  There are two available types of request: `SINGLE_ENTITY` and `COMPLEX`. Each of them contains version name (`versionName`) and name of a branch (`branch`) to create version (commit) in. If specified branch does not exists in a remote repo, then new empty branch will be created. Request of the `SINGLE_ENTITY` type has id of an entity (`entityId`) and additional configuration (`config`) which has following options:  - `saveRelations` - whether to add inbound and outbound relations of type COMMON to created entity version; - `saveAttributes` - to save attributes of server scope (and also shared scope for devices); - `saveCredentials` - when saving a version of a device, to add its credentials to the version; - `savePermissions` - when saving a user group - to save group permission list; - `saveGroupEntities` - when saving an entity group - to save its entities as well.  An example of a `SINGLE_ENTITY` version create request: ```json {   "type": "SINGLE_ENTITY",    "versionName": "Version 1.0",   "branch": "dev",    "entityId": {     "entityType": "DEVICE",     "id": "b79448e0-d4f4-11ec-847b-0f432358ab48"   },   "config": {     "saveRelations": true,     "saveAttributes": true,     "saveCredentials": false   } } ```  Second request type (`COMPLEX`), additionally to `branch` and `versionName`, contains following properties: - `entityTypes` - a structure with entity types to export and configuration for each entity type;    this configuration has all the options available for `SINGLE_ENTITY` and additionally has these ones:       - `allEntities` and `entityIds` - if you want to save the version of all entities of the entity type         then set `allEntities` param to true, otherwise set it to false and specify `entityIds` -         in case entity type is group entity, list of specific entity groups, or if not - list of entities;      - `syncStrategy` - synchronization strategy to use for this entity type: when set to `OVERWRITE`         then the list of remote entities of this type will be overwritten by newly added entities. If set to         `MERGE` - existing remote entities of this entity type will not be removed, new entities will just         be added on top (or existing remote entities will be updated). - `syncStrategy` - default synchronization strategy to use when it is not specified for an entity type.  Example for this type of request: ```json {   "type": "COMPLEX",    "versionName": "Devices and profiles: release 2",   "branch": "master",    "syncStrategy": "OVERWRITE",   "entityTypes": {     "DEVICE": {       "syncStrategy": null,       "allEntities": true,       "saveRelations": true,       "saveAttributes": true,       "saveCredentials": true     },     "DEVICE_PROFILE": {       "syncStrategy": "MERGE",       "allEntities": false,       "entityIds": [         "b79448e0-d4f4-11ec-847b-0f432358ab48"       ],       "saveRelations": true     }   } } ```  Response wil contain generated request UUID, that can be then used to retrieve status of operation via `getVersionCreateRequestStatus`.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (VersionCreateRequest):
+    - `version_name` (str)
+    - `branch` (str)
+    - `type` (str)
     """
     try:
         client = get_client()

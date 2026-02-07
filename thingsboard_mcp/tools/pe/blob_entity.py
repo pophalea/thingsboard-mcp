@@ -9,6 +9,11 @@ def delete_blob_entity(blob_entity_id_json: str) -> str:
     Delete Blob Entity (deleteBlobEntity)  # noqa: E501
 
 Delete Blob entity based on the provided Blob entity Id. Referencing non-existing Blob entity Id will cause an error.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.   Security check is performed to verify that the user has 'DELETE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (BlobEntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def download_blob_entity(blob_entity_id_json: str) -> str:
     Download Blob Entity By Id (downloadBlobEntity)  # noqa: E501
 
 Download report file based on the provided Blob entity Id. Referencing non-existing Blob entity Id will cause an error.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (BlobEntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +99,11 @@ def get_blob_entity_info_by_id(blob_entity_id_json: str) -> str:
     Get Blob Entity With Customer Info (getBlobEntityInfoById)  # noqa: E501
 
 Fetch the BlobEntityWithCustomerInfo object based on the provided Blob entity Id. The platform uses Blob(binary large object) entities in the reporting feature, in order to store Dashboard states snapshots of different content types in base64 format. BlobEntityWithCustomerInfo represents an object that contains base info about the blob entity(name, type, contentType, etc.) and info about the customer(customerTitle, customerIsPublic) of the user that scheduled generation of the dashboard report. Referencing non-existing Blob entity Id will cause an error.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (BlobEntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

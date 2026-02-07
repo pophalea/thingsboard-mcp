@@ -9,6 +9,11 @@ def download_gateway_docker_compose(device_id_json: str) -> str:
     Download generated docker-compose.yml file for gateway (downloadGatewayDockerCompose)  # noqa: E501
 
 Download generated docker-compose.yml for gateway.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +54,11 @@ def get_device_publish_telemetry_commands(device_id_json: str) -> str:
     Get commands to publish device telemetry (getDevicePublishTelemetryCommands)  # noqa: E501
 
 Fetch the list of commands to publish device telemetry based on device profile If the user has the authority of 'Tenant Administrator', the server checks that the device is owned by the same tenant. If the user has the authority of 'Customer User', the server checks that the device is assigned to the same customer.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

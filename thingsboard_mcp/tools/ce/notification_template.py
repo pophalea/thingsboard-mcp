@@ -89,6 +89,15 @@ def save_notification_template(body_json: str) -> str:
     Save notification template (saveNotificationTemplate)  # noqa: E501
 
 Creates or updates notification template.  Here is an example of template to send notification via Web, SMS and Slack: ```json {   "name": "Greetings",   "notificationType": "GENERAL",   "configuration": {     "deliveryMethodsTemplates": {       "WEB": {         "enabled": true,         "subject": "Greetings",         "body": "Hi there, ${recipientTitle}",         "additionalConfig": {           "icon": {             "enabled": true,             "icon": "back_hand",             "color": "#757575"           },           "actionButtonConfig": {             "enabled": false           }         },         "method": "WEB"       },       "SMS": {         "enabled": true,         "body": "Hi there, ${recipientTitle}",         "method": "SMS"       },       "SLACK": {         "enabled": true,         "body": "Hi there, @${recipientTitle}",         "method": "SLACK"       }     }   } } ```  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (NotificationTemplate):
+    - `id` (NotificationTemplateId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `name` (str)
+    - `notification_type` (str)
+    - `configuration` (NotificationTemplateConfig)
     """
     try:
         client = get_client()

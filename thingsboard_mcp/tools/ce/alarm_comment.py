@@ -9,6 +9,13 @@ def delete_alarm_comment(alarm_id_json: str, comment_id_json: str) -> str:
     Delete Alarm comment (deleteAlarmComment)  # noqa: E501
 
 Deletes the Alarm comment. Referencing non-existing Alarm comment Id will cause an error.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AlarmId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (AlarmCommentId):
+    - `id` (str)
     """
     try:
         client = get_client()
@@ -29,6 +36,11 @@ def get_alarm_comments(alarm_id_json: str, page_size: int, page: int, sort_prope
     Get Alarm comments (getAlarmComments)  # noqa: E501
 
 Returns a page of alarm comments for specified alarm. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AlarmId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +61,19 @@ def save_alarm_comment(alarm_id_json: str, body_json: str = None) -> str:
     Create or update Alarm Comment   # noqa: E501
 
 Creates or Updates the Alarm Comment. When creating comment, platform generates Alarm Comment Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Alarm Comment id will be present in the response. Specify existing Alarm Comment id to update the alarm. Referencing non-existing Alarm Comment Id will cause 'Not Found' error.    To create new Alarm comment entity it is enough to specify 'comment' json element with 'text' node, for example: {"comment": { "text": "my comment"}}.    If comment type is not specified the default value 'OTHER' will be saved. If 'alarmId' or 'userId' specified in body it will be ignored.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AlarmId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (AlarmComment):
+    - `alarm_id` (AlarmId)
+    - `user_id` (UserId)
+    - `type` (str)
+    - `comment` (JsonNode)
+    - `id` (AlarmCommentId)
+    - `created_time` (int)
+    - `name` (str)
     """
     try:
         client = get_client()

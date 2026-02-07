@@ -129,6 +129,14 @@ def save_notification_target(body_json: str) -> str:
     Save notification target (saveNotificationTarget)  # noqa: E501
 
 Creates or updates notification target.  Available `configuration` types are `PLATFORM_USERS` and `SLACK`. For `PLATFORM_USERS` the `usersFilter` must be specified. For tenant, there are following users filter types available: `USER_LIST`, `CUSTOMER_USERS`, `TENANT_ADMINISTRATORS`, `ALL_USERS`, `ORIGINATOR_ENTITY_OWNER_USERS`, `AFFECTED_USER`. For sysadmin: `TENANT_ADMINISTRATORS`, `AFFECTED_TENANT_ADMINISTRATORS`, `SYSTEM_ADMINISTRATORS`, `ALL_USERS`.  Here is an example of tenant-level notification target to send notification to customer's users: ```json {   "name": "Users of Customer A",   "configuration": {     "type": "PLATFORM_USERS",     "usersFilter": {       "type": "CUSTOMER_USERS",       "customerId": "32499a20-d785-11ed-a06c-21dd57dd88ca"     },     "description": "Users of Customer A"   } } ```  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (NotificationTarget):
+    - `id` (NotificationTargetId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `name` (str)
+    - `configuration` (OneOfNotificationTargetConfiguration)
     """
     try:
         client = get_client()

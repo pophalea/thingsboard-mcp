@@ -25,6 +25,11 @@ def get_tenant_profile_data() -> str:
 def get_tenant_profile_data_by_id(tenant_profile_id_json: str) -> str:
     """
     getTenantProfileDataById  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

@@ -9,6 +9,11 @@ def activate_user(body_json: str, send_activation_mail: bool) -> str:
     Activate User  # noqa: E501
 
 Checks the activation token and updates corresponding user password in the database. Now the user may start using his password to login. The response already contains the [JWT](https://jwt.io) activation and refresh tokens, to simplify the user activation flow and avoid asking user to input password again after activation. If token is valid, returns the object that contains [JWT](https://jwt.io/) access and refresh tokens. If token is not valid, returns '404 Bad Request'.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (ActivateUserRequest):
+    - `activate_token` (str)
+    - `password` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def change_password(body_json: str = None) -> str:
     Change password for current User (changePassword)  # noqa: E501
 
 Change the password for the User which credentials are used to perform this REST API call. Be aware that previously generated [JWT](https://jwt.io/) tokens will be still valid until they expire.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (ChangePasswordRequest):
+    - `current_password` (str)
+    - `new_password` (str)
     """
     try:
         client = get_client()
@@ -129,6 +139,10 @@ def request_reset_password_by_email(body_json: str = None) -> str:
     Request reset password email (requestResetPasswordByEmail)  # noqa: E501
 
 Request to send the reset password email if the user with specified email address is present in the database. Always return '200 OK' status for security purposes.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (ResetPasswordEmailRequest):
+    - `email` (str)
     """
     try:
         client = get_client()
@@ -149,6 +163,11 @@ def reset_password(body_json: str = None) -> str:
     Reset password (resetPassword)  # noqa: E501
 
 Checks the password reset token and updates the password. If token is valid, returns the object that contains [JWT](https://jwt.io/) access and refresh tokens. If token is not valid, returns '404 Bad Request'.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (ResetPasswordRequest):
+    - `reset_token` (str)
+    - `password` (str)
     """
     try:
         client = get_client()

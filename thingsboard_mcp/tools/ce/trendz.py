@@ -29,6 +29,12 @@ def save_trendz_settings(body_json: str) -> str:
     Save Trendz settings (saveTrendzSettings)  # noqa: E501
 
 Saves Trendz settings for this tenant.   Here is an example of the Trendz settings: ```json {   "enabled": true,   "baseUrl": "https://some.domain.com:18888/also_necessary_prefix" } ```  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TrendzSettings):
+    - `enabled` (bool)
+    - `base_url` (str)
+    - `api_key` (str)
     """
     try:
         client = get_client()

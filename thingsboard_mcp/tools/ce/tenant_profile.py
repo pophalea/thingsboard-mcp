@@ -9,6 +9,11 @@ def delete_tenant_profile(tenant_profile_id_json: str) -> str:
     Delete Tenant Profile (deleteTenantProfile)  # noqa: E501
 
 Deletes the tenant profile. Referencing non-existing tenant profile Id will cause an error. Referencing profile that is used by the tenants will cause an error.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +54,11 @@ def get_tenant_profile_by_id(tenant_profile_id_json: str) -> str:
     Get Tenant Profile (getTenantProfileById)  # noqa: E501
 
 Fetch the Tenant Profile object based on the provided Tenant Profile Id.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +79,11 @@ def get_tenant_profile_info_by_id(tenant_profile_id_json: str) -> str:
     Get Tenant Profile Info (getTenantProfileInfoById)  # noqa: E501
 
 Fetch the Tenant Profile Info object based on the provided Tenant Profile Id. Tenant Profile Info is a lightweight object that contains only id and name of the profile.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -147,6 +162,16 @@ def save_tenant_profile(body_json: str = None) -> str:
     Create Or update Tenant Profile (saveTenantProfile)  # noqa: E501
 
 Create or update the Tenant Profile. When creating tenant profile, platform generates Tenant Profile Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Tenant Profile Id will be present in the response. Specify existing Tenant Profile Id id to update the Tenant Profile. Referencing non-existing Tenant Profile Id will cause 'Not Found' error.   Update of the tenant profile configuration will cause immediate recalculation of API limits for all affected Tenants.   The **'profileData'** object is the part of Tenant Profile that defines API limits and Rate limits.   You have an ability to define maximum number of devices ('maxDevice'), assets ('maxAssets') and other entities. You may also define maximum number of messages to be processed per month ('maxTransportMessages', 'maxREExecutions', etc). The '*RateLimit' defines the rate limits using simple syntax. For example, '1000:1,20000:60' means up to 1000 events per second but no more than 20000 event per minute. Let's review the example of tenant profile data below:   ```json {   "name": "Default",   "description": "Default tenant profile",   "isolatedTbRuleEngine": false,   "profileData": {     "configuration": {       "type": "DEFAULT",       "maxDevices": 0,       "maxAssets": 0,       "maxCustomers": 0,       "maxUsers": 0,       "maxDashboards": 0,       "maxRuleChains": 0,       "maxResourcesInBytes": 0,       "maxOtaPackagesInBytes": 0,       "maxResourceSize": 0,       "transportTenantMsgRateLimit": "1000:1,20000:60",       "transportTenantTelemetryMsgRateLimit": "1000:1,20000:60",       "transportTenantTelemetryDataPointsRateLimit": "1000:1,20000:60",       "transportDeviceMsgRateLimit": "20:1,600:60",       "transportDeviceTelemetryMsgRateLimit": "20:1,600:60",       "transportDeviceTelemetryDataPointsRateLimit": "20:1,600:60",       "maxTransportMessages": 10000000,       "maxTransportDataPoints": 10000000,       "maxREExecutions": 4000000,       "maxJSExecutions": 5000000,       "maxDPStorageDays": 0,       "maxRuleNodeExecutionsPerMessage": 50,       "maxEmails": 0,       "maxSms": 0,       "maxCreatedAlarms": 1000,       "defaultStorageTtlDays": 0,       "alarmsTtlDays": 0,       "rpcTtlDays": 0,       "queueStatsTtlDays": 0,       "ruleEngineExceptionsTtlDays": 0,       "warnThreshold": 0     }   },   "default": true } ```Remove 'id', from the request body example (below) to create new Tenant Profile entity.  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantProfile):
+    - `id` (TenantProfileId)
+    - `created_time` (int)
+    - `name` (str)
+    - `description` (str)
+    - `isolated_tb_rule_engine` (bool)
+    - `default` (bool)
+    - `profile_data` (TenantProfileData)
     """
     try:
         client = get_client()
@@ -167,6 +192,11 @@ def set_default_tenant_profile(tenant_profile_id_json: str) -> str:
     Make tenant profile default (setDefaultTenantProfile)  # noqa: E501
 
 Makes specified tenant profile to be default. Referencing non-existing tenant profile Id will cause an error.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

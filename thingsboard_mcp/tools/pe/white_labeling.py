@@ -9,6 +9,11 @@ def delete_current_login_white_label_params(customer_id_json: str) -> str:
     Delete Login White Labeling configuration (deleteCurrentLoginWhiteLabelParams)  # noqa: E501
 
 Delete the Login White Labeling configuration that corresponds to the authority of the user.   Security check is performed to verify that the user has 'WRITE' permission for the white labeling resource.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def delete_current_white_label_params(customer_id_json: str) -> str:
     Delete General White Labeling configuration (deleteCurrentWhiteLabelParams)  # noqa: E501
 
 Delete the White Labeling configuration that corresponds to the authority of the user.   Security check is performed to verify that the user has 'WRITE' permission for the white labeling resource.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -169,6 +179,23 @@ def preview_white_label_params(body_json: str = None) -> str:
     Preview Login White Labeling configuration (saveWhiteLabelParams)  # noqa: E501
 
 Merge the White Labeling configuration with the parent configuration and return the result.  Security check is performed to verify that the user has 'WRITE' permission for the white labeling resource.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WhiteLabelingParams):
+    - `logo_image_url` (str)
+    - `logo_image_height` (int)
+    - `app_title` (str)
+    - `favicon` (Favicon)
+    - `palette_settings` (PaletteSettings)
+    - `help_link_base_url` (str)
+    - `ui_help_base_url` (str)
+    - `enable_help_links` (bool)
+    - `white_labeling_enabled` (bool)
+    - `show_name_version` (bool)
+    - `platform_name` (str)
+    - `platform_version` (str)
+    - `custom_css` (str)
+    - `hide_connectivity_dialog` (bool)
     """
     try:
         client = get_client()
@@ -189,6 +216,30 @@ def save_login_white_label_params(body_json: str = None) -> str:
     Create Or Update Login White Labeling configuration (saveWhiteLabelParams)  # noqa: E501
 
 Creates or Updates the White Labeling configuration.  Security check is performed to verify that the user has 'WRITE' permission for the white labeling resource.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (LoginWhiteLabelingParams):
+    - `logo_image_url` (str)
+    - `logo_image_height` (int)
+    - `app_title` (str)
+    - `favicon` (Favicon)
+    - `palette_settings` (PaletteSettings)
+    - `help_link_base_url` (str)
+    - `ui_help_base_url` (str)
+    - `enable_help_links` (bool)
+    - `white_labeling_enabled` (bool)
+    - `show_name_version` (bool)
+    - `platform_name` (str)
+    - `platform_version` (str)
+    - `custom_css` (str)
+    - `hide_connectivity_dialog` (bool)
+    - `page_background_color` (str)
+    - `dark_foreground` (bool)
+    - `domain_name` (str)
+    - `base_url` (str)
+    - `prohibit_different_url` (bool)
+    - `admin_settings_id` (str)
+    - `show_name_bottom` (bool)
     """
     try:
         client = get_client()
@@ -209,6 +260,23 @@ def save_white_label_params(body_json: str = None) -> str:
     Create Or Update White Labeling configuration (saveWhiteLabelParams)  # noqa: E501
 
 Creates or Updates the White Labeling configuration.  Security check is performed to verify that the user has 'WRITE' permission for the white labeling resource.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WhiteLabelingParams):
+    - `logo_image_url` (str)
+    - `logo_image_height` (int)
+    - `app_title` (str)
+    - `favicon` (Favicon)
+    - `palette_settings` (PaletteSettings)
+    - `help_link_base_url` (str)
+    - `ui_help_base_url` (str)
+    - `enable_help_links` (bool)
+    - `white_labeling_enabled` (bool)
+    - `show_name_version` (bool)
+    - `platform_name` (str)
+    - `platform_version` (str)
+    - `custom_css` (str)
+    - `hide_connectivity_dialog` (bool)
     """
     try:
         client = get_client()

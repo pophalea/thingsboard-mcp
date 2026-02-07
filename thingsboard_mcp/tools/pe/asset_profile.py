@@ -9,6 +9,11 @@ def delete_asset_profile(asset_profile_id_json: str) -> str:
     Delete asset profile (deleteAssetProfile)  # noqa: E501
 
 Deletes the asset profile. Referencing non-existing asset profile Id will cause an error. Can't delete the asset profile if it is referenced by existing assets.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AssetProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +74,11 @@ def get_asset_profile_info_by_id(asset_profile_id_json: str) -> str:
     Get Asset Profile Info (getAssetProfileInfoById)  # noqa: E501
 
 Fetch the Asset Profile Info object based on the provided Asset Profile Id. Asset Profile Info is a lightweight object that includes main information about Asset Profile.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AssetProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -189,6 +199,11 @@ def set_default_asset_profile(asset_profile_id_json: str) -> str:
     Make Asset Profile Default (setDefaultAssetProfile)  # noqa: E501
 
 Marks asset profile as default within a tenant scope.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AssetProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

@@ -9,6 +9,11 @@ def delete_role(role_id_json: str) -> str:
     Delete role (deleteRole)  # noqa: E501
 
 Deletes the role. Referencing non-existing role Id will cause an error.   Security check is performed to verify that the user has 'DELETE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (RoleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def get_role_by_id(role_id_json: str) -> str:
     Get Role by Id (getRoleById)  # noqa: E501
 
 Fetch the Role object based on the provided Role Id. Role Contains a set of permissions. Role has two types. Generic Role may be assigned to the user group and will provide permissions for all entities of a certain type. Group Role may be assigned to both user and entity group and will provides permissions only for the entities that belong to specified entity group. The assignment of the Role to the User Group is done using [Group Permission Controller](/swagger-ui.html#/group-permission-controller). Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (RoleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +99,19 @@ def save_role(body_json: str = None) -> str:
     Create Or Update Role (saveRole)  # noqa: E501
 
 Creates or Updates the Role. When creating Role, platform generates Role Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Role id will be present in the response. Specify existing Role id to update the permission. Referencing non-existing Group Permission Id will cause 'Not Found' error.  Role Contains a set of permissions. Role has two types. Generic Role may be assigned to the user group and will provide permissions for all entities of a certain type. Group Role may be assigned to both user and entity group and will provides permissions only for the entities that belong to specified entity group. The assignment of the Role to the User Group is done using [Group Permission Controller](/swagger-ui.html#/group-permission-controller).  Example of Generic Role with read-only permissions for any resource and all permissions for the 'DEVICE' and 'PROFILE' resources is listed below:   ```json {   "name": "Read-Only User",   "type": "GENERIC",   "permissions": {     "ALL": [       "READ",       "RPC_CALL",       "READ_CREDENTIALS",       "READ_ATTRIBUTES",       "READ_TELEMETRY"     ],     "DEVICE": [       "ALL"     ]     "PROFILE": [       "ALL"     ]   },   "additionalInfo": {     "description": "Read-only permissions for everything, Write permissions for devices and own profile."   } } ```  Example of Group Role with read-only permissions. Note that the group role has no association with the resources. The type of the resource is taken from the entity group that this role is assigned to:   ```json {   "name": "Entity Group Read-only User",   "type": "GROUP",   "permissions": [     "READ",     "RPC_CALL",     "READ_CREDENTIALS",     "READ_ATTRIBUTES",     "READ_TELEMETRY"   ],   "additionalInfo": {     "description": "Read-only permissions."   } } ```   Security check is performed to verify that the user has 'WRITE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (Role):
+    - `tenant_id` (TenantId)
+    - `customer_id` (CustomerId)
+    - `name` (str)
+    - `type` (str)
+    - `permissions` (JsonNode)
+    - `version` (int)
+    - `id` (RoleId)
+    - `created_time` (int)
+    - `additional_info` (JsonNode)
+    - `owner_id` (EntityId)
     """
     try:
         client = get_client()

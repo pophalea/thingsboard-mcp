@@ -9,6 +9,11 @@ def delete_ai_model_by_id(ai_model_id_json: str) -> str:
     Delete AI model by ID (deleteAiModelById)  # noqa: E501
 
 Deletes the AI model record by its `id`. If a record with the specified `id` exists, the record is deleted and the endpoint returns `true`. If no such record exists, the endpoint returns `false`.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AiModelId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def get_ai_model_by_id(ai_model_id_json: str) -> str:
     Get AI model by ID (getAiModelById)  # noqa: E501
 
 Fetches an AI model record by its `id`.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AiModelId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +79,15 @@ def save_ai_model(body_json: str) -> str:
     Create or update AI model (saveAiModel)  # noqa: E501
 
 Creates or updates an AI model record.  • **Create:** Omit the `id` to create a new record. The platform assigns a UUID to the new record and returns it in the `id` field of the response.  • **Update:** Include an existing `id` to modify that record. If no matching record exists, the API responds with **404 Not Found**.  Tenant ID for the AI model will be taken from the authenticated user making the request, regardless of any value provided in the request body.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AiModel):
+    - `tenant_id` (TenantId)
+    - `version` (str)
+    - `name` (str)
+    - `configuration` (dict)
+    - `id` (AiModelId)
+    - `created_time` (int)
     """
     try:
         client = get_client()
@@ -89,6 +108,12 @@ def send_chat_request(body_json: str) -> str:
     Send request to AI chat model (sendChatRequest)  # noqa: E501
 
 Submits a single prompt - made up of an optional system message and a required user message - to the specified AI chat model and returns either the generated answer or an error envelope.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TbChatRequest):
+    - `system_message` (str)
+    - `user_message` (TbUserMessage)
+    - `chat_model_config` (dict)
     """
     try:
         client = get_client()

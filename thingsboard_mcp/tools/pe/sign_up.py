@@ -129,6 +129,16 @@ def sign_up(body_json: str = None) -> str:
     User Sign Up (signUp)  # noqa: E501
 
 Process user sign up request. Creates the Customer and corresponding User based on self Registration parameters for the domain. See [Self Registration Controller](/swagger-ui.html#/self-registration-controller) for more details.  The result is either 'SUCCESS' or 'INACTIVE_USER_EXISTS'. If Success, the user will receive an email with instruction to activate the account. The content of the email is customizable via the mail templates.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (SignUpRequest):
+    - `first_name` (str)
+    - `last_name` (str)
+    - `email` (str)
+    - `password` (str)
+    - `recaptcha_response` (str)
+    - `pkg_name` (str)
+    - `app_secret` (str)
     """
     try:
         client = get_client()

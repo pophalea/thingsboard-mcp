@@ -9,6 +9,21 @@ def create_notification_request(body_json: str) -> str:
     Create notification request (createNotificationRequest)  # noqa: E501
 
 Processes notification request. Mandatory request properties are `targets` (list of targets ids to send notification to), and either `templateId` (existing notification template id) or `template` (to send notification without saving the template). Optionally, you can set `sendingDelayInSec` inside the `additionalConfig` field to schedule the notification.  For each enabled delivery method in the notification template, there must be a target in the `targets` list that supports this delivery method: if you chose `WEB`, `EMAIL` or `SMS` - there must be at least one target in `targets` of `PLATFORM_USERS` type. For `SLACK` delivery method - you need to chose at least one `SLACK` notification target.  Notification request object with `PROCESSING` status will be returned immediately, and the notification sending itself is done asynchronously. After all notifications are sent, the `status` of the request becomes `SENT`. Use `getNotificationRequestById` to see the notification request processing status and some sending stats.   Here is an example of notification request to one target using saved template: ```json {   "templateId": {     "entityType": "NOTIFICATION_TEMPLATE",     "id": "6dbc3670-e4dd-11ed-9401-dbcc5dff78be"   },   "targets": [     "320e3ed0-d785-11ed-a06c-21dd57dd88ca"   ],   "additionalConfig": {     "sendingDelayInSec": 0   } } ```  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (NotificationRequest):
+    - `tenant_id` (TenantId)
+    - `targets` (list[str])
+    - `template_id` (NotificationTemplateId)
+    - `template` (NotificationTemplate)
+    - `info` (NotificationInfo)
+    - `additional_config` (NotificationRequestConfig)
+    - `originator_entity_id` (EntityId)
+    - `rule_id` (NotificationRuleId)
+    - `status` (str)
+    - `stats` (NotificationRequestStats)
+    - `id` (NotificationRequestId)
+    - `created_time` (int)
     """
     try:
         client = get_client()
@@ -109,6 +124,21 @@ def get_notification_request_preview(body_json: str, recipients_preview_size: Op
     Get notification request preview (getNotificationRequestPreview)  # noqa: E501
 
 Returns preview for notification request.  `processedTemplates` shows how the notifications for each delivery method will look like for the first recipient of the corresponding notification target.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (NotificationRequest):
+    - `tenant_id` (TenantId)
+    - `targets` (list[str])
+    - `template_id` (NotificationTemplateId)
+    - `template` (NotificationTemplate)
+    - `info` (NotificationInfo)
+    - `additional_config` (NotificationRequestConfig)
+    - `originator_entity_id` (EntityId)
+    - `rule_id` (NotificationRuleId)
+    - `status` (str)
+    - `stats` (NotificationRequestStats)
+    - `id` (NotificationRequestId)
+    - `created_time` (int)
     """
     try:
         client = get_client()

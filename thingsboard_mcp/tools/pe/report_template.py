@@ -9,6 +9,11 @@ def delete_report_template(report_template_id_json: str) -> str:
     Delete Report Template (deleteReportTemplate)  # noqa: E501
 
 Deletes the report template. Referencing non-existing Report Template Id will cause 'Not Found' error.   Security check is performed to verify that the user has 'DELETE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (ReportTemplateId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +54,11 @@ def get_report_template_by_id(report_template_id_json: str) -> str:
     Get Report Template (getReportTemplateById)  # noqa: E501
 
 Fetch the ReportTemplate object based on the provided report template Id. Report Template extends Report Template Info object and adds 'configuration' - a JSON structure of report template configuration. See the 'Model' tab of the Response Class for more details. Referencing non-existing Report Template Id will cause 'Not Found' error.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.   Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (ReportTemplateId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +79,11 @@ def get_report_template_info_by_id(report_template_id_json: str) -> str:
     Get Report Template Info (getReportTemplateInfoById)  # noqa: E501
 
 Fetch the ReportTemplateInfo object based on the provided report template Id. Report Templates allows you to create reports according to the report template configuration. Report service uses report template configuration to generate report. See the 'Model' tab of the Response Class for more details. Referencing non-existing Report Template Id will cause 'Not Found' error.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.   Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (ReportTemplateId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -109,6 +124,20 @@ def save_report_template(body_json: str) -> str:
     Save Report Template (saveReportTemplate)  # noqa: E501
 
 Creates or Updates report template. Report Template extends Report Template Info object and adds 'configuration' - a JSON structure of report template configuration. See the 'Model' tab of the Response Class for more details. When creating report template, platform generates report template Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created report template id will be present in the response. Specify existing report template id to update the report template. Referencing non-existing report template Id will cause 'Not Found' error. Remove 'id', 'tenantId' and optionally 'customerId' from the request body example (below) to create new Report Template entity.   Available for users with 'TENANT_ADMIN' authority.   Security check is performed to verify that the user has 'WRITE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (ReportTemplate):
+    - `id` (ReportTemplateId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `customer_id` (CustomerId)
+    - `name` (str)
+    - `format` (str)
+    - `type` (str)
+    - `description` (str)
+    - `version` (str)
+    - `configuration` (JsonNode)
+    - `owner_id` (EntityId)
     """
     try:
         client = get_client()

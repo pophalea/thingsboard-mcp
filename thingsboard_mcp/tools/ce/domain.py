@@ -9,6 +9,11 @@ def delete_domain(domain_id_json: str) -> str:
     Delete Domain by ID (deleteDomain)  # noqa: E501
 
 Deletes Domain by ID. Referencing non-existing domain Id will cause an error.  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DomainId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def get_domain_info_by_id(domain_id_json: str) -> str:
     Get Domain info by Id (getDomainInfoById)  # noqa: E501
 
   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DomainId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +99,15 @@ def save_domain(body_json: str, oauth2_client_ids: Optional[str] = None) -> str:
     Save or Update Domain (saveDomain)  # noqa: E501
 
 Create or update the Domain. When creating domain, platform generates Domain Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Domain Id will be present in the response. Specify existing Domain Id to update the domain. Referencing non-existing Domain Id will cause 'Not Found' error.  Domain name is unique for entire platform setup.    Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (Domain):
+    - `id` (DomainId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `name` (str)
+    - `oauth2_enabled` (bool)
+    - `propagate_to_edge` (bool)
     """
     try:
         client = get_client()

@@ -9,6 +9,14 @@ def assign_integration_to_edge(edge_id_json: str, integration_id_json: str) -> s
     Assign integration to edge (assignIntegrationToEdge)  # noqa: E501
 
 Creates assignment of an existing integration edge template to an instance of The Edge. Assignment works in async way - first, notification event pushed to edge service queue on platform. Second, remote edge service will receive a copy of assignment integration (Edge will receive this instantly, if it's currently connected, or once it's going to be connected to platform). Third, once integration will be delivered to edge service, it's going to start locally.   Only integration edge template can be assigned to edge.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (IntegrationId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +37,26 @@ def check_integration_connection(body_json: str = None) -> str:
     Check integration connectivity (checkIntegrationConnection)  # noqa: E501
 
 Checks if the connection to the integration is established. Throws an error if the connection is not established. Example: Failed to connect to MQTT broker at host:port.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (Integration):
+    - `id` (IntegrationId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `name` (str)
+    - `type` (str)
+    - `debug_mode` (bool)
+    - `enabled` (bool)
+    - `allow_create_devices_or_assets` (bool)
+    - `version` (int)
+    - `default_converter_id` (ConverterId)
+    - `downlink_converter_id` (ConverterId)
+    - `routing_key` (str)
+    - `secret` (str)
+    - `configuration` (JsonNode)
+    - `additional_info` (JsonNode)
+    - `edge_template` (bool)
+    - `remote` (bool)
     """
     try:
         client = get_client()
@@ -49,6 +77,11 @@ def delete_integration(integration_id_json: str) -> str:
     Delete integration (deleteIntegration)  # noqa: E501
 
 Deletes the integration and all the relations (from and to the integration). Referencing non-existing integration Id will cause an error.    Security check is performed to verify that the user has 'DELETE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (IntegrationId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +102,11 @@ def find_all_related_edges_missing_attributes(integration_id_json: str) -> str:
     Find missing attributes for all related edges (findAllRelatedEdgesMissingAttributes)  # noqa: E501
 
 Returns list of attribute names of all related edges that are missing in the integration configuration.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (IntegrationId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +127,11 @@ def find_edge_missing_attributes_get(edge_id_json: str, integration_ids: str) ->
     Find edge missing attributes for assigned integrations (findEdgeMissingAttributes)  # noqa: E501
 
 Returns list of edge attribute names that are missing in assigned integrations.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -109,6 +152,11 @@ def get_edge_integration_infos(edge_id_json: str, page_size: int, page: int, tex
     Get Edge Integrations (getEdgeIntegrationInfos)  # noqa: E501
 
 Returns a page of Integrations assigned to the specified edge. The integration object contains information about the Integration, including the heavyweight configuration object. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -129,6 +177,11 @@ def get_edge_integrations(edge_id_json: str, page_size: int, page: int, text_sea
     Get Edge Integrations (getEdgeIntegrations)  # noqa: E501
 
 Returns a page of Integrations assigned to the specified edge. The integration object contains information about the Integration, including the heavyweight configuration object. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -149,6 +202,11 @@ def get_integration_by_id(integration_id_json: str) -> str:
     Get Integration (getIntegrationById)  # noqa: E501
 
 Fetch the Integration object based on the provided Integration Id. The server checks that the integration is owned by the same tenant.    Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (IntegrationId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -269,6 +327,26 @@ def save_integration(body_json: str = None) -> str:
     Create Or Update Integration (saveIntegration)  # noqa: E501
 
 Create or update the Integration. When creating integration, platform generates Integration Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created integration id will be present in the response. Specify existing Integration id to update the integration. Referencing non-existing integration Id will cause 'Not Found' error. Integration configuration is validated for each type of the integration before it can be created.   # Integration Configuration  Integration configuration (**'configuration'** field) is the JSON object representing the special configuration per integration type with the connectivity fields and other important parameters dependent on the specific integration type. Let's review the configuration object for the MQTT Integration type below.   ```json {    "clientConfiguration":{       "host":"broker.hivemq.com",       "port":1883,       "cleanSession":false,       "ssl":false,       "connectTimeoutSec":10,       "clientId":"",       "maxBytesInMessage":32368,       "credentials":{          "type":"anonymous"       }    },    "downlinkTopicPattern":"${topic}",    "topicFilters":[       {          "filter":"tb/mqtt-integration-tutorial/sensors/+/temperature",          "qos":0       }    ],    "metadata":{    } } ```  Remove 'id', 'tenantId' from the request body example (below) to create new Integration entity.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (Integration):
+    - `id` (IntegrationId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `name` (str)
+    - `type` (str)
+    - `debug_mode` (bool)
+    - `enabled` (bool)
+    - `allow_create_devices_or_assets` (bool)
+    - `version` (int)
+    - `default_converter_id` (ConverterId)
+    - `downlink_converter_id` (ConverterId)
+    - `routing_key` (str)
+    - `secret` (str)
+    - `configuration` (JsonNode)
+    - `additional_info` (JsonNode)
+    - `edge_template` (bool)
+    - `remote` (bool)
     """
     try:
         client = get_client()
@@ -289,6 +367,14 @@ def unassign_integration_from_edge(edge_id_json: str, integration_id_json: str) 
     Unassign integration from edge (unassignIntegrationFromEdge)  # noqa: E501
 
 Clears assignment of the integration to the edge. Unassignment works in async way - first, 'unassign' notification event pushed to edge queue on platform. Second, remote edge service will receive an 'unassign' command to remove integration (Edge will receive this instantly, if it's currently connected, or once it's going to be connected to platform). Third, once 'unassign' command will be delivered to edge service, it's going to remove integration locally.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (IntegrationId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

@@ -9,6 +9,11 @@ def delete_tenant(tenant_id_json: str) -> str:
     Delete Tenant (deleteTenant)  # noqa: E501
 
 Deletes the tenant, it's customers, rule chains, devices and all other related entities. Referencing non-existing tenant Id will cause an error.  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def get_tenant_by_id(tenant_id_json: str) -> str:
     Get Tenant (getTenantById)  # noqa: E501
 
 Fetch the Tenant object based on the provided Tenant Id.   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +59,11 @@ def get_tenant_info_by_id(tenant_id_json: str) -> str:
     Get Tenant Info (getTenantInfoById)  # noqa: E501
 
 Fetch the Tenant Info object based on the provided Tenant Id. The Tenant Info object extends regular Tenant object and includes Tenant Profile name.   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -109,6 +124,25 @@ def save_tenant(body_json: str = None) -> str:
     Create Or update Tenant (saveTenant)  # noqa: E501
 
 Create or update the Tenant. When creating tenant, platform generates Tenant Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). Default Rule Chain and Device profile are also generated for the new tenants automatically. The newly created Tenant Id will be present in the response. Specify existing Tenant Id id to update the Tenant. Referencing non-existing Tenant Id will cause 'Not Found' error.Remove 'id', 'tenantId' from the request body example (below) to create new Tenant entity.  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (Tenant):
+    - `id` (TenantId)
+    - `created_time` (int)
+    - `country` (str)
+    - `state` (str)
+    - `city` (str)
+    - `address` (str)
+    - `address2` (str)
+    - `zip` (str)
+    - `phone` (str)
+    - `email` (str)
+    - `title` (str)
+    - `region` (str)
+    - `tenant_profile_id` (TenantProfileId)
+    - `version` (int)
+    - `name` (str)
+    - `additional_info` (JsonNode)
     """
     try:
         client = get_client()

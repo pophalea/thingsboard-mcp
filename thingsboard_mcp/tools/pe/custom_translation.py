@@ -89,6 +89,10 @@ def patch_custom_translation(body_json: str, locale_code: str) -> str:
     Update Custom Translation for specified translation keys only (patchCustomTranslation)  # noqa: E501
 
 The API call is designed to update the custom translation for specified key only.    Request example:   ```json {"notification.active":"active"} ```  Security check is performed to verify that the user has 'WRITE' permission for the white labeling resource.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomTranslation):
+    - `translation_map` (dict(str, str))
     """
     try:
         client = get_client()
@@ -109,6 +113,10 @@ def save_custom_translation(locale_code: str, body_json: str) -> str:
     Create Or Update Custom Translation (saveCustomTranslation)  # noqa: E501
 
 Creates or Updates the Custom Translation map.   Request example:   ```json {"translationMap":{"es_ES":"{\\"home\\":\\"MyHome\\"}"}} ```  Security check is performed to verify that the user has 'WRITE' permission for the white labeling resource.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomTranslation):
+    - `translation_map` (dict(str, str))
     """
     try:
         client = get_client()

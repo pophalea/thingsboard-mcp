@@ -9,6 +9,11 @@ def delete_tenant_profile(tenant_profile_id_json: str) -> str:
     Delete Tenant Profile (deleteTenantProfile)  # noqa: E501
 
 Deletes the tenant profile. Referencing non-existing tenant profile Id will cause an error. Referencing profile that is used by the tenants will cause an error.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +54,11 @@ def get_tenant_profile_by_id(tenant_profile_id_json: str) -> str:
     Get Tenant Profile (getTenantProfileById)  # noqa: E501
 
 Fetch the Tenant Profile object based on the provided Tenant Profile Id.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +79,11 @@ def get_tenant_profile_info_by_id(tenant_profile_id_json: str) -> str:
     Get Tenant Profile Info (getTenantProfileInfoById)  # noqa: E501
 
 Fetch the Tenant Profile Info object based on the provided Tenant Profile Id. Tenant Profile Info is a lightweight object that contains only id and name of the profile.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -167,6 +182,11 @@ def set_default_tenant_profile(tenant_profile_id_json: str) -> str:
     Make tenant profile default (setDefaultTenantProfile)  # noqa: E501
 
 Makes specified tenant profile to be default. Referencing non-existing tenant profile Id will cause an error.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

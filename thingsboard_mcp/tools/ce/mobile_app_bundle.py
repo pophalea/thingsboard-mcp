@@ -9,6 +9,11 @@ def delete_mobile_app_bundle(mobile_app_bundle_id_json: str) -> str:
     Delete Mobile App Bundle by ID (deleteMobileAppBundle)  # noqa: E501
 
 Deletes Mobile App Bundle by ID. Referencing non-existing mobile app bundle Id will cause an error.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (MobileAppBundleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def get_mobile_app_bundle_info_by_id(mobile_app_bundle_id_json: str) -> str:
     Get mobile app bundle info by id (getMobileAppBundleInfoById)  # noqa: E501
 
   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (MobileAppBundleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +79,19 @@ def save_mobile_app_bundle(body_json: str, oauth2_client_ids_json: str = None) -
     Save Or update Mobile app bundle (saveMobileAppBundle)  # noqa: E501
 
 Create or update the Mobile app bundle that represents tha pair of ANDROID and IOS app and mobile settings like oauth2 clients, self-registration and layout configuration.When creating mobile app bundle, platform generates Mobile App Bundle Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Mobile App Bundle Id will be present in the response. Referencing non-existing Mobile App Bundle Id will cause 'Not Found' error.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (MobileAppBundle):
+    - `id` (MobileAppBundleId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `title` (str)
+    - `description` (str)
+    - `android_app_id` (MobileAppId)
+    - `ios_app_id` (MobileAppId)
+    - `layout_config` (MobileLayoutConfig)
+    - `oauth2_enabled` (bool)
+    - `name` (str)
     """
     try:
         client = get_client()

@@ -9,6 +9,11 @@ def delete_widgets_bundle(widgets_bundle_id_json: str) -> str:
     Delete widgets bundle (deleteWidgetsBundle)  # noqa: E501
 
 Deletes the widget bundle. Referencing non-existing Widget Bundle Id will cause an error.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetsBundleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def get_widgets_bundle_by_id(widgets_bundle_id_json: str, inline_images: Optiona
     Get Widget Bundle (getWidgetsBundleById)  # noqa: E501
 
 Get the Widget Bundle based on the provided Widget Bundle Id. Widget Bundle represents a group(bundle) of widgets. Widgets are grouped into bundle by type or use case.   Available for any authorized user.   # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetsBundleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -129,6 +139,11 @@ def update_widgets_bundle_widget_fqns(widgets_bundle_id_json: str, body_json: st
     Update widgets bundle widgets list from widget type FQNs list (updateWidgetsBundleWidgetFqns)  # noqa: E501
 
 Updates widgets bundle widgets list from widget type FQNs list.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetsBundleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -149,6 +164,11 @@ def update_widgets_bundle_widget_types(widgets_bundle_id_json: str, body_json: s
     Update widgets bundle widgets types list (updateWidgetsBundleWidgetTypes)  # noqa: E501
 
 Updates widgets bundle widgets list.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetsBundleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

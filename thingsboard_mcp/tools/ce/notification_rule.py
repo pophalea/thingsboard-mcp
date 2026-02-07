@@ -69,6 +69,19 @@ def save_notification_rule(body_json: str) -> str:
     Save notification rule (saveNotificationRule)  # noqa: E501
 
 Creates or updates notification rule.   Mandatory properties are `name`, `templateId` (of a template with `notificationType` matching to rule's `triggerType`), `triggerType`, `triggerConfig` and `recipientConfig`. Additionally, you may specify rule `description` inside of `additionalConfig`.  Trigger type of the rule cannot be changed. Available trigger types for tenant: `ENTITY_ACTION`, `ALARM`, `ALARM_COMMENT`, `ALARM_ASSIGNMENT`, `DEVICE_ACTIVITY`, `RULE_ENGINE_COMPONENT_LIFECYCLE_EVENT`. For sysadmin, there are following trigger types available: `ENTITIES_LIMIT`, `API_USAGE_LIMIT`, `NEW_PLATFORM_VERSION`.  Here is an example of notification rule to send notification when a device, asset or customer is created or deleted: ```json {   "name": "Entity action",   "templateId": {     "entityType": "NOTIFICATION_TEMPLATE",     "id": "32117320-d785-11ed-a06c-21dd57dd88ca"   },   "triggerType": "ENTITY_ACTION",   "triggerConfig": {     "entityTypes": [       "CUSTOMER",       "DEVICE",       "ASSET"     ],     "created": true,     "updated": false,     "deleted": true,     "triggerType": "ENTITY_ACTION"   },   "recipientsConfig": {     "targets": [       "320f2930-d785-11ed-a06c-21dd57dd88ca"     ],     "triggerType": "ENTITY_ACTION"   },   "additionalConfig": {     "description": "Send notification to tenant admins or customer users when a device, asset or customer is created"   },   "templateName": "Entity action notification",   "deliveryMethods": [     "WEB"   ] } ```  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (NotificationRule):
+    - `id` (NotificationRuleId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `name` (str)
+    - `enabled` (bool)
+    - `template_id` (NotificationTemplateId)
+    - `trigger_type` (str)
+    - `trigger_config` (OneOfNotificationRuleTriggerConfig)
+    - `recipients_config` (OneOfNotificationRuleRecipientsConfig)
+    - `additional_config` (NotificationRuleConfig)
     """
     try:
         client = get_client()

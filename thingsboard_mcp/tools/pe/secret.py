@@ -9,6 +9,11 @@ def delete_secret(secret_id_json: str) -> str:
     Delete secret by ID (deleteSecret)  # noqa: E501
 
 Deletes the secret. Referencing non-existing Secret Id will cause an error.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (SecretId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def get_secret_info_by_id(secret_id_json: str) -> str:
     Get Secret info by Id (getSecretInfoById)  # noqa: E501
 
   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (SecretId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -109,6 +119,16 @@ def save_secret(body_json: str) -> str:
     Save or Update Secret (saveSecret)  # noqa: E501
 
 Create or update the Secret. When creating secret, platform generates Secret Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Secret Id will be present in the response. Specify existing Secret Id to update the secret. Secret name is not updatable, only value could be changed. Referencing non-existing Secret Id will cause 'Not Found' error.  Secret name is unique in the scope of tenant.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (Secret):
+    - `id` (SecretId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `name` (str)
+    - `type` (str)
+    - `description` (str)
+    - `value` (str)
     """
     try:
         client = get_client()
@@ -129,6 +149,11 @@ def update_secret_description(id_json: str, description: str) -> str:
     Update Secret Description  # noqa: E501
 
 Updates the description of the existing Secret by secretId. Only the description can be updated. Referencing a non-existing Secret Id will cause a 'Not Found' error.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (SecretId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -149,6 +174,11 @@ def update_secret_value(id_json: str, value: str) -> str:
     Update Secret value  # noqa: E501
 
 Updates the value of the existing Secret by secretId. Referencing a non-existing Secret Id will cause a 'Not Found' error.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (SecretId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

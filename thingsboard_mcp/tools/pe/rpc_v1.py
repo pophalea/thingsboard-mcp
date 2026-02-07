@@ -9,6 +9,11 @@ def handle_one_way_device_rpc_request(device_id_json: str, body: Optional[str] =
     Send one-way RPC request (handleOneWayDeviceRPCRequest)  # noqa: E501
 
 Deprecated. See 'Rpc V 2 Controller' instead.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def handle_two_way_device_rpc_request(device_id_json: str, body_json: str = None
     Send two-way RPC request (handleTwoWayDeviceRPCRequest)  # noqa: E501
 
 Deprecated. See 'Rpc V 2 Controller' instead.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

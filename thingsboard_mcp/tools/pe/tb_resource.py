@@ -9,6 +9,11 @@ def download_jks_resource_if_changed(resource_id_json: str, if_none_match: str =
     Download JKS Resource (downloadJksResourceIfChanged)  # noqa: E501
 
 Download Resource based on the provided Resource Id or return 304 status code if resource was not changed.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def download_js_resource_if_changed(resource_id_json: str, if_none_match: str = 
     Download JS Resource (downloadJsResourceIfChanged)  # noqa: E501
 
 Download Resource based on the provided Resource Id or return 304 status code if resource was not changed.  Available for any authorized user.   # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +59,11 @@ def download_lwm2m_resource_if_changed(resource_id_json: str, if_none_match: str
     Download LWM2M Resource (downloadLwm2mResourceIfChanged)  # noqa: E501
 
 Download Resource based on the provided Resource Id or return 304 status code if resource was not changed.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +84,11 @@ def download_pkcs12_resource_if_changed(resource_id_json: str, if_none_match: st
     Download PKCS_12 Resource (downloadPkcs12ResourceIfChanged)  # noqa: E501
 
 Download Resource based on the provided Resource Id or return 304 status code if resource was not changed.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +109,11 @@ def download_resource(resource_id_json: str) -> str:
     Download Resource (downloadResource)  # noqa: E501
 
 Download Resource based on the provided Resource Id.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -169,6 +194,11 @@ def get_resource_by_id(resource_id_json: str) -> str:
     Get Resource (getResourceById)  # noqa: E501
 
 Fetch the Resource object based on the provided Resource Id. Resource is a heavyweight object that includes main information about the Resource and also data.   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -189,6 +219,11 @@ def get_resource_info_by_id(resource_id_json: str) -> str:
     Get Resource Info (getResourceInfoById)  # noqa: E501
 
 Fetch the Resource Info object based on the provided Resource Id. Resource Info is a lightweight object that includes main information about the Resource excluding the heavyweight data.   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -249,6 +284,27 @@ def save_resource(body_json: str = None) -> str:
     Create Or Update Resource (saveResource)  # noqa: E501
 
 Create or update the Resource. When creating the Resource, platform generates Resource id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Resource id will be present in the response. Specify existing Resource id to update the Resource. Referencing non-existing Resource Id will cause 'Not Found' error.   Resource combination of the title with the key is unique in the scope of tenant. Remove 'id', 'tenantId' from the request body example (below) to create new Resource entity.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TbResource):
+    - `id` (TbResourceId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `customer_id` (CustomerId)
+    - `title` (str)
+    - `resource_type` (str)
+    - `resource_sub_type` (str)
+    - `resource_key` (str)
+    - `public_resource_key` (str)
+    - `etag` (str)
+    - `file_name` (str)
+    - `descriptor` (JsonNode)
+    - `data` (str)
+    - `preview` (str)
+    - `name` (str)
+    - `public` (bool)
+    - `link` (str)
+    - `public_link` (str)
     """
     try:
         client = get_client()

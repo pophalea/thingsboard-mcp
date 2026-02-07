@@ -9,6 +9,16 @@ def create_custom_menu(body_json: str = None, assign_to_list_json: str = None, f
     Create Custom Menu (createCustomMenu)  # noqa: E501
 
 The api is designed to create Custom Menu without configuration. Is not applicable for update.  Security check is performed to verify that the user has 'WRITE' permission for the custom menu with specified id.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomMenuInfo):
+    - `id` (CustomMenuId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `customer_id` (CustomerId)
+    - `name` (str)
+    - `scope` (str)
+    - `assignee_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +39,10 @@ def delete_custom_menu(custom_menu_id_json: str, force: Optional[bool] = None) -
     Delete custom menu (deleteCustomMenu)  # noqa: E501
 
 Deletes the custom menu based on the provided Custom Menu Id. Referencing non-existing custom menu Id will cause an error. If the custom menu is assigned to the list of users or customers bad request is returned.To delete a custom menu that has assignee list set 'force' request param to true   # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomMenuId):
+    - `id` (str)
     """
     try:
         client = get_client()
@@ -69,6 +83,10 @@ def get_custom_menu_assignee_list(custom_menu_id_json: str) -> str:
     Get Custom Menu assignee list (getCustomMenuAssigneeList)  # noqa: E501
 
 Fetch the list of Entity Info objects that represents users or customers, or empty list if custom menu is not assigned or has NO_ASSIGN/ALL assignee type.  Security check is performed to verify that the user has 'READ' permission for the custom menu with specified id.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomMenuId):
+    - `id` (str)
     """
     try:
         client = get_client()
@@ -89,6 +107,10 @@ def get_custom_menu_config(custom_menu_id_json: str) -> str:
     Get Custom Menu configuration by id (getCustomMenuConfig)  # noqa: E501
 
 Fetch the Custom Menu configuration based on the provided Custom Menu Id.   Security check is performed to verify that the user has 'READ' permission for the custom menu with specified id.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomMenuId):
+    - `id` (str)
     """
     try:
         client = get_client()
@@ -109,6 +131,10 @@ def get_custom_menu_info_by_id(custom_menu_id_json: str) -> str:
     Get Custom Menu Info (getCustomMenuInfoById)  # noqa: E501
 
 Fetch the Custom Menu Info object based on the provided Custom Menu Id.   Security check is performed to verify that the user has 'READ' permission for the custom menu with specified id.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomMenuId):
+    - `id` (str)
     """
     try:
         client = get_client()
@@ -149,6 +175,10 @@ def update_custom_menu_assignee_list(id_json: str, assignee_type: str, body_json
     Update custom menu assignee list (updateCustomMenuAssigneeList)  # noqa: E501
 
 The api designed to update the list of assignees or assignee type based on the provided Custom Menu Id. To change assignee type, put new assignee type in path parameter.  Security check is performed to verify that the user has 'WRITE' permission for the custom menu with specified id.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomMenuId):
+    - `id` (str)
     """
     try:
         client = get_client()
@@ -169,6 +199,12 @@ def update_custom_menu_config(id_json: str, body_json: str) -> str:
     Update Custom Menu configuration based on the provided Custom Menu Id (updateCustomMenuConfig)  # noqa: E501
 
   Security check is performed to verify that the user has 'WRITE' permission for the custom menu with specified id.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomMenuId):
+    - `id` (str)
+    Expected JSON Structure (CustomMenuConfig):
+    - `items` (list[OneOfCustomMenuConfigItemsItems])
     """
     try:
         client = get_client()
@@ -189,6 +225,10 @@ def update_custom_menu_name(id_json: str, body: str) -> str:
     Update Custom Menu name based on the provided Custom Menu Id (updateCustomMenuName)  # noqa: E501
 
   Security check is performed to verify that the user has 'WRITE' permission for the custom menu with specified id.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomMenuId):
+    - `id` (str)
     """
     try:
         client = get_client()

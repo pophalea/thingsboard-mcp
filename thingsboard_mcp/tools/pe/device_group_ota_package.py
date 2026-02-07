@@ -25,6 +25,11 @@ def delete_device_group_ota_package(id: str) -> str:
 def get_firmware_by_id(group_id_json: str, firmware_type: str) -> str:
     """
     getFirmwareById  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityGroupId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -43,6 +48,14 @@ def get_firmware_by_id(group_id_json: str, firmware_type: str) -> str:
 def save_device_group_ota_package(body_json: str = None) -> str:
     """
     saveDeviceGroupOtaPackage  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceGroupOtaPackage):
+    - `id` (str)
+    - `group_id` (EntityGroupId)
+    - `ota_package_type` (str)
+    - `ota_package_id` (OtaPackageId)
+    - `ota_package_update_time` (int)
     """
     try:
         client = get_client()

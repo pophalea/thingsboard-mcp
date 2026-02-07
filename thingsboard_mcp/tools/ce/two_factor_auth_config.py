@@ -109,6 +109,14 @@ def save_platform_two_fa_settings(body_json: str) -> str:
     Save platform 2FA settings (savePlatformTwoFaSettings)  # noqa: E501
 
 Save 2FA settings for platform. The settings have following properties: - `providers` - the list of 2FA providers' configs. Users will only be allowed to use 2FA providers from this list.   - `minVerificationCodeSendPeriod` - minimal period in seconds to wait after verification code send request to send next request.  - `verificationCodeCheckRateLimit` - rate limit configuration for verification code checking. The format is standard: 'amountOfRequests:periodInSeconds'. The value of '1:60' would limit verification code checking requests to one per minute. - `maxVerificationFailuresBeforeUserLockout` - maximum number of verification failures before a user gets disabled. - `totalAllowedTimeForVerification` - total amount of time in seconds allotted for verification. Basically, this property sets a lifetime for pre-verification token. If not set, default value of 30 minutes is used.   TOTP 2FA provider config has following settings: - `issuerName` - issuer name that will be displayed in an authenticator app near a username. Must not be blank.  For SMS 2FA provider: - `smsVerificationMessageTemplate` - verification message template.  Available template variables are ${code} and ${userEmail}. It must not be blank and must contain verification code variable. - `verificationCodeLifetime` - verification code lifetime in seconds. Required to be positive.  For EMAIL provider type: - `verificationCodeLifetime` - the same as for SMS.  Example of the settings: ``` {   "providers": [     {       "providerType": "TOTP",       "issuerName": "TB"     },     {       "providerType": "EMAIL",       "verificationCodeLifetime": 60     },     {       "providerType": "SMS",       "verificationCodeLifetime": 60,       "smsVerificationMessageTemplate": "Here is your verification code: ${code}"     }   ],   "minVerificationCodeSendPeriod": 60,   "verificationCodeCheckRateLimit": "4.1.0",   "maxVerificationFailuresBeforeUserLockout": 10,   "totalAllowedTimeForVerification": 600 } ```  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (PlatformTwoFaSettings):
+    - `providers` (list[OneOfPlatformTwoFaSettingsProvidersItems])
+    - `min_verification_code_send_period` (int)
+    - `verification_code_check_rate_limit` (str)
+    - `max_verification_failures_before_user_lockout` (int)
+    - `total_allowed_time_for_verification` (int)
     """
     try:
         client = get_client()
@@ -129,6 +137,11 @@ def submit_two_fa_account_config(body_json: str) -> str:
     Submit 2FA account config (submitTwoFaAccountConfig)  # noqa: E501
 
 Submit 2FA account config to prepare for a future verification. Basically, this method will send a verification code for a given account config, if this has sense for a chosen 2FA provider. This code is needed to then verify and save the account config.  Example of EMAIL 2FA account config: ``` {   "providerType": "EMAIL",   "useByDefault": true,   "email": "separate-email-for-2fa@thingsboard.org" } ```  Example of SMS 2FA account config: ``` {   "providerType": "SMS",   "useByDefault": false,   "phoneNumber": "+38012312321" } ```  For TOTP this method does nothing.  Will throw an error (Bad Request) if submitted account config is not valid, or if the provider is not configured for usage.   Available for any authorized user.   # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TwoFaAccountConfig):
+    - `use_by_default` (bool)
+    - `provider_type` (str)
     """
     try:
         client = get_client()
@@ -149,6 +162,10 @@ def update_two_fa_account_config(provider_type: str, body_json: str) -> str:
     Update 2FA account config (updateTwoFaAccountConfig)  # noqa: E501
 
 Update config for a given provider type.  Update request example: ``` {   "useByDefault": true } ``` Returns whole account's 2FA settings object.   Available for any authorized user.   # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TwoFaAccountConfigUpdateRequest):
+    - `use_by_default` (bool)
     """
     try:
         client = get_client()
@@ -169,6 +186,11 @@ def verify_and_save_two_fa_account_config(body_json: str, verification_code: str
     Verify and save 2FA account config (verifyAndSaveTwoFaAccountConfig)  # noqa: E501
 
 Checks the verification code for submitted config, and if it is correct, saves the provided account config.   Returns whole account's 2FA settings object. Will throw an error (Bad Request) if the provider is not configured for usage.   Available for any authorized user.   # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TwoFaAccountConfig):
+    - `use_by_default` (bool)
+    - `provider_type` (str)
     """
     try:
         client = get_client()

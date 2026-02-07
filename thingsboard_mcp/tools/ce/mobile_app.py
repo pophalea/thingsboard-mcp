@@ -9,6 +9,11 @@ def delete_mobile_app(mobile_app_id_json: str) -> str:
     Delete Mobile App by ID (deleteMobileApp)  # noqa: E501
 
 Deletes Mobile App by ID. Referencing non-existing mobile app Id will cause an error.  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (MobileAppId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -47,6 +52,11 @@ def get_mobile_app_by_id(mobile_app_id_json: str) -> str:
     Get mobile info by id (getMobileAppInfoById)  # noqa: E501
 
   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (MobileAppId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -67,6 +77,11 @@ def get_mobile_app_info_by_id(mobile_app_id_json: str) -> str:
     Get mobile info by id (getMobileAppInfoById)  # noqa: E501
 
   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (MobileAppId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -167,6 +182,16 @@ def save_mobile_app(body_json: str, oauth2_client_ids: Optional[str] = None) -> 
     Save Or update Mobile app (saveMobileApp)  # noqa: E501
 
 Create or update the Mobile app. When creating mobile app, platform generates Mobile App Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Mobile App Id will be present in the response. Specify existing Mobile App Id to update the mobile app. Referencing non-existing Mobile App Id will cause 'Not Found' error.  Mobile app package name is unique for entire platform setup.    Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (MobileApp):
+    - `id` (MobileAppId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `pkg_name` (str)
+    - `app_secret` (str)
+    - `oauth2_enabled` (bool)
+    - `name` (str)
     """
     try:
         client = get_client()

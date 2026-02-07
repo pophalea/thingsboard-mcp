@@ -149,6 +149,21 @@ def save_asset_profile(body_json: str) -> str:
     Create Or Update Asset Profile (saveAssetProfile)  # noqa: E501
 
 Create or update the Asset Profile. When creating asset profile, platform generates asset profile id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created asset profile id will be present in the response. Specify existing asset profile id to update the asset profile. Referencing non-existing asset profile Id will cause 'Not Found' error.   Asset profile name is unique in the scope of tenant. Only one 'default' asset profile may exist in scope of tenant. Remove 'id', 'tenantId' from the request body example (below) to create new Asset Profile entity.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AssetProfile):
+    - `id` (AssetProfileId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `name` (str)
+    - `description` (str)
+    - `image` (str)
+    - `default_rule_chain_id` (RuleChainId)
+    - `default_dashboard_id` (DashboardId)
+    - `default_queue_name` (str)
+    - `default_edge_rule_chain_id` (RuleChainId)
+    - `version` (int)
+    - `default` (bool)
     """
     try:
         client = get_client()

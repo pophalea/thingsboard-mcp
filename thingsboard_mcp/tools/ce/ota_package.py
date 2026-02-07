@@ -9,6 +9,11 @@ def delete_ota_package(ota_package_id_json: str) -> str:
     Delete OTA Package (deleteOtaPackage)  # noqa: E501
 
 Deletes the OTA Package. Referencing non-existing OTA Package Id will cause an error. Can't delete the OTA Package if it is referenced by existing devices or device profile.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (OtaPackageId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def download_ota_package(ota_package_id_json: str) -> str:
     Download OTA Package (downloadOtaPackage)  # noqa: E501
 
 Download OTA Package based on the provided OTA Package Id.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (OtaPackageId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +59,11 @@ def get_ota_package_by_id(ota_package_id_json: str) -> str:
     Get OTA Package (getOtaPackageById)  # noqa: E501
 
 Fetch the OTA Package object based on the provided OTA Package Id. The server checks that the OTA Package is owned by the same tenant. OTA Package is a heavyweight object that includes main information about the OTA Package and also data.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (OtaPackageId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +84,11 @@ def get_ota_package_info_by_id(ota_package_id_json: str) -> str:
     Get OTA Package Info (getOtaPackageInfoById)  # noqa: E501
 
 Fetch the OTA Package Info object based on the provided OTA Package Id. OTA Package Info is a lightweight object that includes main information about the OTA Package excluding the heavyweight data.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (OtaPackageId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -109,6 +129,11 @@ def get_ota_packages_v1(device_profile_id_json: str, type: str, page_size: int, 
     Get OTA Package Infos (getOtaPackages)  # noqa: E501
 
 Returns a page of OTA Package Info objects owned by tenant. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details. OTA Package Info is a lightweight object that includes main information about the OTA Package excluding the heavyweight data.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -129,6 +154,11 @@ def save_ota_package_data(ota_package_id_json: str, checksum: Optional[str] = No
     Save OTA Package data (saveOtaPackageData)  # noqa: E501
 
 Update the OTA Package. Adds the date to the existing OTA Package Info  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (OtaPackageId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -149,6 +179,26 @@ def save_ota_package_info(body_json: str = None) -> str:
     Create Or Update OTA Package Info (saveOtaPackageInfo)  # noqa: E501
 
 Create or update the OTA Package Info. When creating OTA Package Info, platform generates OTA Package id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created OTA Package id will be present in the response. Specify existing OTA Package id to update the OTA Package Info. Referencing non-existing OTA Package Id will cause 'Not Found' error.   OTA Package combination of the title with the version is unique in the scope of tenant.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (SaveOtaPackageInfoRequest):
+    - `id` (OtaPackageId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `device_profile_id` (DeviceProfileId)
+    - `type` (str)
+    - `title` (str)
+    - `version` (str)
+    - `tag` (str)
+    - `url` (str)
+    - `has_data` (bool)
+    - `file_name` (str)
+    - `content_type` (str)
+    - `checksum_algorithm` (str)
+    - `checksum` (str)
+    - `data_size` (int)
+    - `uses_url` (bool)
+    - `additional_info` (JsonNode)
     """
     try:
         client = get_client()

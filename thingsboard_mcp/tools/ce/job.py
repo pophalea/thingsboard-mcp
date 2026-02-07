@@ -7,6 +7,11 @@ from ..shared import get_client, deserialize_param, format_response, ApiExceptio
 def cancel_job(id_json: str) -> str:
     """
     cancelJob  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (JobId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -25,6 +30,11 @@ def cancel_job(id_json: str) -> str:
 def delete_job(id_json: str) -> str:
     """
     deleteJob  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (JobId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -43,6 +53,11 @@ def delete_job(id_json: str) -> str:
 def get_job_by_id(id_json: str) -> str:
     """
     getJobById  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (JobId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -79,6 +94,11 @@ def get_jobs(page_size: int, page: int, text_search: Optional[str] = None, sort_
 def reprocess_job(id_json: str) -> str:
     """
     reprocessJob  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (JobId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

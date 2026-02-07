@@ -29,6 +29,20 @@ def check_repository_access(body_json: str = None) -> str:
     Check repository access (checkRepositoryAccess)  # noqa: E501
 
 Attempts to check repository access.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (RepositorySettings):
+    - `repository_uri` (str)
+    - `auth_method` (str)
+    - `username` (str)
+    - `password` (str)
+    - `private_key_file_name` (str)
+    - `private_key` (str)
+    - `private_key_password` (str)
+    - `default_branch` (str)
+    - `read_only` (bool)
+    - `show_merge_commits` (bool)
+    - `local_only` (bool)
     """
     try:
         client = get_client()
@@ -345,6 +359,14 @@ def save_admin_settings(body_json: str = None) -> str:
     Get the Administration Settings object using key (getAdminSettings)  # noqa: E501
 
 Creates or Updates the Administration Settings. Platform generates random Administration Settings Id during settings creation. The Administration Settings Id will be present in the response. Specify the Administration Settings Id when you would like to update the Administration Settings. Referencing non-existing Administration Settings Id will cause an error.  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AdminSettings):
+    - `id` (AdminSettingsId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `key` (str)
+    - `json_value` (JsonNode)
     """
     try:
         client = get_client()
@@ -385,6 +407,13 @@ def save_jwt_settings(body_json: str = None) -> str:
     Update JWT Settings (saveJwtSettings)  # noqa: E501
 
 Updates the JWT Settings object that contains JWT token policy, etc. The tokenSigningKey field is a Base64 encoded string.  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (JwtSettings):
+    - `token_expiration_time` (int)
+    - `refresh_token_exp_time` (int)
+    - `token_issuer` (str)
+    - `token_signing_key` (str)
     """
     try:
         client = get_client()
@@ -405,6 +434,20 @@ def save_repository_settings(body_json: str = None) -> str:
     Creates or Updates the repository settings (saveRepositorySettings)  # noqa: E501
 
 Creates or Updates the repository settings object.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (RepositorySettings):
+    - `repository_uri` (str)
+    - `auth_method` (str)
+    - `username` (str)
+    - `password` (str)
+    - `private_key_file_name` (str)
+    - `private_key` (str)
+    - `private_key_password` (str)
+    - `default_branch` (str)
+    - `read_only` (bool)
+    - `show_merge_commits` (bool)
+    - `local_only` (bool)
     """
     try:
         client = get_client()
@@ -425,6 +468,15 @@ def save_security_settings(body_json: str = None) -> str:
     Update Security Settings (saveSecuritySettings)  # noqa: E501
 
 Updates the Security Settings object that contains password policy, etc.  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (SecuritySettings):
+    - `password_policy` (UserPasswordPolicy)
+    - `max_failed_login_attempts` (int)
+    - `user_lockout_notification_email` (str)
+    - `mobile_secret_key_length` (int)
+    - `user_activation_token_ttl` (int)
+    - `password_reset_token_ttl` (int)
     """
     try:
         client = get_client()
@@ -445,6 +497,14 @@ def send_test_mail(body_json: str = None) -> str:
     Send test email (sendTestMail)  # noqa: E501
 
 Attempts to send test email to the System Administrator User using Mail Settings provided as a parameter. You may change the 'To' email in the user profile of the System Administrator.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AdminSettings):
+    - `id` (AdminSettingsId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `key` (str)
+    - `json_value` (JsonNode)
     """
     try:
         client = get_client()
@@ -465,6 +525,12 @@ def send_test_sms(body_json: str = None) -> str:
     Send test sms (sendTestMail)  # noqa: E501
 
 Attempts to send test sms to the System Administrator User using SMS Settings and phone number provided as a parameters of the request.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TestSmsRequest):
+    - `provider_configuration` (OneOfTestSmsRequestProviderConfiguration)
+    - `number_to` (str)
+    - `message` (str)
     """
     try:
         client = get_client()

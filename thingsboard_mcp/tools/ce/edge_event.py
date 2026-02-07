@@ -9,6 +9,11 @@ def get_edge_events(edge_id_json: str, page_size: int, page: int, text_search: O
     Get Edge Events (getEdgeEvents)  # noqa: E501
 
 Returns a page of edge events for the requested edge. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

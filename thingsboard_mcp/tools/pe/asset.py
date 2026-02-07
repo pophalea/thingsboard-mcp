@@ -9,6 +9,11 @@ def delete_asset(asset_id_json: str) -> str:
     Delete asset (deleteAsset)  # noqa: E501
 
 Deletes the asset and all the relations (from and to the asset). Referencing non-existing asset Id will cause an error.   Security check is performed to verify that the user has 'DELETE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AssetId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,12 @@ def find_by_query(body_json: str = None) -> str:
     Find related assets (findByQuery)  # noqa: E501
 
 Returns all assets that are related to the specific entity. The entity id, relation type, asset types, depth of the search, and other query parameters defined using complex 'AssetSearchQuery' object. See 'Model' tab of the Parameters for more info.    Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AssetSearchQuery):
+    - `parameters` (RelationsSearchParameters)
+    - `relation_type` (str)
+    - `asset_types` (list[str])
     """
     try:
         client = get_client()
@@ -49,6 +60,11 @@ def get_all_asset_infos(page_size: int, page: int, text_search: Optional[str] = 
     Get All Asset Infos for current user (getAllAssetInfos)  # noqa: E501
 
 Returns a page of asset info objects owned by the tenant or the customer of a current user. Asset Info is an extension of the default Asset object that contains information about the owner name.  You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AssetProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +85,11 @@ def get_asset_by_id(asset_id_json: str) -> str:
     Get Asset (getAssetById)  # noqa: E501
 
 Fetch the Asset object based on the provided Asset Id. If the user has the authority of 'Tenant Administrator', the server checks that the asset is owned by the same tenant. If the user has the authority of 'Customer User', the server checks that the asset is assigned to the same customer.   Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AssetId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +110,11 @@ def get_asset_info_by_id(asset_id_json: str) -> str:
     Get Asset Info (getAssetInfoById)  # noqa: E501
 
 Fetch the Asset Info object based on the provided Asset Id. If the user has the authority of 'Tenant Administrator', the server checks that the asset is owned by the same tenant. If the user has the authority of 'Customer User', the server checks that the asset is assigned to the same customer.Asset Info is an extension of the default Asset object that contains information about the owner name.    Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AssetId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -129,6 +155,11 @@ def get_assets_by_entity_group_id(entity_group_id_json: str, page_size: int, pag
     Get assets by Entity Group Id (getAssetsByEntityGroupId)  # noqa: E501
 
 Returns a page of asset objects that belongs to specified Entity Group Id. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.    Security check is performed to verify that the user has 'READ' permission for specified group.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityGroupId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -169,6 +200,14 @@ def get_customer_asset_infos(customer_id_json: str, page_size: int, page: int, t
     Get Customer Asset Infos (getCustomerAssetInfos)  # noqa: E501
 
 Returns a page of asset info objects owned by the specified customer. Asset Info is an extension of the default Asset object that contains information about the owner name.  You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (AssetProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -189,6 +228,11 @@ def get_customer_assets(customer_id_json: str, page_size: int, page: int, type: 
     Get Customer Assets (getCustomerAssets)  # noqa: E501
 
 Returns a page of assets objects owned by customer. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.    Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -249,6 +293,11 @@ def get_user_assets(page_size: int, page: int, type: Optional[str] = None, text_
     Get Assets (getUserAssets)  # noqa: E501
 
 Returns a page of assets objects available for the current user. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details. Asset Info is an extension of the default Asset object that contains information about the owner name.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AssetProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -269,6 +318,13 @@ def process_asset_bulk_import(body_json: str = None) -> str:
     Import the bulk of assets (processAssetsBulkImport)  # noqa: E501
 
 There's an ability to import the bulk of assets using the only .csv file.   Security check is performed to verify that the user has 'WRITE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (BulkImportRequest):
+    - `file` (str)
+    - `mapping` (Mapping)
+    - `customer_id` (CustomerId)
+    - `entity_group_id` (str)
     """
     try:
         client = get_client()
@@ -289,6 +345,11 @@ def save_asset(body_json: str = None, entity_group_id_json: str = None, entity_g
     Create Or Update Asset (saveAsset)  # noqa: E501
 
 Creates or Updates the Asset. When creating asset, platform generates Asset Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Asset id will be present in the response. Specify existing Asset id to update the asset. Referencing non-existing Asset Id will cause 'Not Found' error. Remove 'id', 'tenantId' and optionally 'customerId' from the request body example (below) to create new Asset entity.    Security check is performed to verify that the user has 'WRITE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityGroupId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

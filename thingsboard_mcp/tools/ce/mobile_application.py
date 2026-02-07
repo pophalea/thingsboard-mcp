@@ -87,6 +87,19 @@ def save_mobile_app_settings(body_json: str) -> str:
     Create Or Update the Mobile application settings (saveMobileAppSettings)  # noqa: E501
 
 The request payload contains configuration for android/iOS applications and platform qr code widget settings.  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (MobileAppSettings):
+    - `id` (MobileAppSettingsId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `use_system_settings` (bool)
+    - `use_default_app` (bool)
+    - `android_config` (AndroidConfig)
+    - `ios_config` (IosConfig)
+    - `qr_code_config` (QRCodeConfig)
+    - `default_google_play_link` (str)
+    - `default_app_store_link` (str)
     """
     try:
         client = get_client()

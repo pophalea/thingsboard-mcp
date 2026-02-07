@@ -9,6 +9,11 @@ def delete_oauth2_client(id_json: str) -> str:
     Delete oauth2 client (deleteOauth2Client)  # noqa: E501
 
 Deletes the oauth2 client. Referencing non-existing oauth2 client Id will cause an error.  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (OAuth2ClientId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -109,6 +114,11 @@ def get_o_auth2_client_by_id(id_json: str) -> str:
     Get OAuth2 Client by id (getOAuth2ClientById)  # noqa: E501
 
   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (OAuth2ClientId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -149,6 +159,28 @@ def save_o_auth2_client(body_json: str = None) -> str:
     Save OAuth2 Client (saveOAuth2Client)  # noqa: E501
 
   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (OAuth2Client):
+    - `id` (OAuth2ClientId)
+    - `created_time` (int)
+    - `additional_info` (JsonNode)
+    - `tenant_id` (TenantId)
+    - `title` (str)
+    - `mapper_config` (OAuth2MapperConfig)
+    - `client_id` (str)
+    - `client_secret` (str)
+    - `authorization_uri` (str)
+    - `access_token_uri` (str)
+    - `scope` (list[str])
+    - `user_info_uri` (str)
+    - `user_name_attribute_name` (str)
+    - `jwk_set_uri` (str)
+    - `client_authentication_method` (str)
+    - `login_button_label` (str)
+    - `login_button_icon` (str)
+    - `platforms` (list[str])
+    - `name` (str)
     """
     try:
         client = get_client()
@@ -169,6 +201,12 @@ def save_o_auth2_info(body_json: str = None) -> str:
     Save OAuth2 settings (saveOAuth2Info)  # noqa: E501
 
   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (OAuth2Info):
+    - `enabled` (bool)
+    - `edge_enabled` (bool)
+    - `oauth2_params_infos` (list[OAuth2ParamsInfo])
     """
     try:
         client = get_client()

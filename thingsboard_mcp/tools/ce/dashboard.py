@@ -9,6 +9,11 @@ def add_dashboard_customers(dashboard_id_json: str, body_json: str = None) -> st
     Adds the Dashboard Customers (addDashboardCustomers)  # noqa: E501
 
 Adds the list of Customers to the existing list of assignments for the Dashboard. Keeps previous assignments to customers that are not in the provided list. Returns the Dashboard object.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,14 @@ def assign_dashboard_to_customer(customer_id_json: str, dashboard_id_json: str) 
     Assign the Dashboard (assignDashboardToCustomer)  # noqa: E501
 
 Assign the Dashboard to specified Customer or do nothing if the Dashboard is already assigned to that Customer. Returns the Dashboard object.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +62,14 @@ def assign_dashboard_to_edge(edge_id_json: str, dashboard_id_json: str) -> str:
     Assign dashboard to edge (assignDashboardToEdge)  # noqa: E501
 
 Creates assignment of an existing dashboard to an instance of The Edge. Assignment works in async way - first, notification event pushed to edge service queue on platform. Second, remote edge service will receive a copy of assignment dashboard (Edge will receive this instantly, if it's currently connected, or once it's going to be connected to platform). Third, once dashboard will be delivered to edge service, it's going to be available for usage on remote edge instance.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +90,11 @@ def assign_dashboard_to_public_customer(dashboard_id_json: str) -> str:
     Assign the Dashboard to Public Customer (assignDashboardToPublicCustomer)  # noqa: E501
 
 Assigns the dashboard to a special, auto-generated 'Public' Customer. Once assigned, unauthenticated users may browse the dashboard. This method is useful if you like to embed the dashboard on public web pages to be available for users that are not logged in. Be aware that making the dashboard public does not mean that it automatically makes all devices and assets you use in the dashboard to be public.Use [assign Asset to Public Customer](#!/asset-controller/assignAssetToPublicCustomerUsingPOST) and [assign Device to Public Customer](#!/device-controller/assignDeviceToPublicCustomerUsingPOST) for this purpose. Returns the Dashboard object.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +115,11 @@ def delete_dashboard(dashboard_id_json: str) -> str:
     Delete the Dashboard (deleteDashboard)  # noqa: E501
 
 Delete the Dashboard.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -109,6 +140,11 @@ def get_customer_dashboards(customer_id_json: str, page_size: int, page: int, mo
     Get Customer Dashboards (getCustomerDashboards)  # noqa: E501
 
 Returns a page of dashboard info objects owned by the specified customer. The Dashboard Info object contains lightweight information about the dashboard (e.g. title, image, assigned customers) but does not contain the heavyweight configuration JSON. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -129,6 +165,11 @@ def get_dashboard_by_id(dashboard_id_json: str, inline_images: Optional[bool] = 
     Get Dashboard (getDashboardById)  # noqa: E501
 
 Get the dashboard based on 'dashboardId' parameter. The Dashboard object is a heavyweight object that contains information about the dashboard (e.g. title, image, assigned customers) and also configuration JSON (e.g. layouts, widgets, entity aliases).  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -149,6 +190,11 @@ def get_dashboard_info_by_id(dashboard_id_json: str) -> str:
     Get Dashboard Info (getDashboardInfoById)  # noqa: E501
 
 Get the information about the dashboard based on 'dashboardId' parameter. The Dashboard Info object contains lightweight information about the dashboard (e.g. title, image, assigned customers) but does not contain the heavyweight configuration JSON.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -169,6 +215,11 @@ def get_edge_dashboards(edge_id_json: str, page_size: int, page: int, text_searc
     Get Edge Dashboards (getEdgeDashboards)  # noqa: E501
 
 Returns a page of dashboard info objects assigned to the specified edge. The Dashboard Info object contains lightweight information about the dashboard (e.g. title, image, assigned customers) but does not contain the heavyweight configuration JSON. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -289,6 +340,11 @@ def get_tenant_dashboards_v1(tenant_id_json: str, page_size: int, page: int, tex
     Get Tenant Dashboards by System Administrator (getTenantDashboards)  # noqa: E501
 
 Returns a page of dashboard info objects owned by tenant. The Dashboard Info object contains lightweight information about the dashboard (e.g. title, image, assigned customers) but does not contain the heavyweight configuration JSON. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TenantId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -329,6 +385,11 @@ def remove_dashboard_customers(dashboard_id_json: str, body_json: str = None) ->
     Remove the Dashboard Customers (removeDashboardCustomers)  # noqa: E501
 
 Removes the list of Customers from the existing list of assignments for the Dashboard. Keeps other assignments to customers that are not in the provided list. Returns the Dashboard object.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -349,6 +410,20 @@ def save_dashboard(body_json: str = None) -> str:
     Create Or Update Dashboard (saveDashboard)  # noqa: E501
 
 Create or update the Dashboard. When creating dashboard, platform generates Dashboard Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Dashboard id will be present in the response. Specify existing Dashboard id to update the dashboard. Referencing non-existing dashboard Id will cause 'Not Found' error. Remove 'id', 'tenantId' and optionally 'customerId' from the request body example (below) to create new Dashboard entity.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (Dashboard):
+    - `id` (DashboardId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `title` (str)
+    - `image` (str)
+    - `assigned_customers` (list[ShortCustomerInfo])
+    - `mobile_hide` (bool)
+    - `mobile_order` (int)
+    - `version` (int)
+    - `configuration` (JsonNode)
+    - `name` (str)
     """
     try:
         client = get_client()
@@ -369,6 +444,11 @@ def set_tenant_home_dashboard_info(body_json: str = None) -> str:
     Update Tenant Home Dashboard Info (getTenantHomeDashboardInfo)  # noqa: E501
 
 Update the home dashboard assignment for the current tenant.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (HomeDashboardInfo):
+    - `dashboard_id` (DashboardId)
+    - `hide_dashboard_toolbar` (bool)
     """
     try:
         client = get_client()
@@ -389,6 +469,14 @@ def unassign_dashboard_from_customer(customer_id_json: str, dashboard_id_json: s
     Unassign the Dashboard (unassignDashboardFromCustomer)  # noqa: E501
 
 Unassign the Dashboard from specified Customer or do nothing if the Dashboard is already assigned to that Customer. Returns the Dashboard object.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -409,6 +497,14 @@ def unassign_dashboard_from_edge(edge_id_json: str, dashboard_id_json: str) -> s
     Unassign dashboard from edge (unassignDashboardFromEdge)  # noqa: E501
 
 Clears assignment of the dashboard to the edge. Unassignment works in async way - first, 'unassign' notification event pushed to edge queue on platform. Second, remote edge service will receive an 'unassign' command to remove dashboard (Edge will receive this instantly, if it's currently connected, or once it's going to be connected to platform). Third, once 'unassign' command will be delivered to edge service, it's going to remove dashboard locally.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -429,6 +525,11 @@ def unassign_dashboard_from_public_customer(dashboard_id_json: str) -> str:
     Unassign the Dashboard from Public Customer (unassignDashboardFromPublicCustomer)  # noqa: E501
 
 Unassigns the dashboard from a special, auto-generated 'Public' Customer. Once unassigned, unauthenticated users may no longer browse the dashboard. Returns the Dashboard object.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -449,6 +550,11 @@ def update_dashboard_customers(dashboard_id_json: str, body_json: str = None) ->
     Update the Dashboard Customers (updateDashboardCustomers)  # noqa: E501
 
 Updates the list of Customers that this Dashboard is assigned to. Removes previous assignments to customers that are not in the provided list. Returns the Dashboard object.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

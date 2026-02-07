@@ -133,6 +133,18 @@ def get_images(page_size: int, page: int, text_search: Optional[str] = None, inc
 def import_image(body_json: str) -> str:
     """
     importImage  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (ImageExportData):
+    - `media_type` (str)
+    - `file_name` (str)
+    - `title` (str)
+    - `sub_type` (str)
+    - `resource_key` (str)
+    - `is_public` (bool)
+    - `public_resource_key` (str)
+    - `data` (str)
+    - `public` (bool)
     """
     try:
         client = get_client()
@@ -169,6 +181,24 @@ def update_image(_type: str, key: str, file: str) -> str:
 def update_image_info(_type: str, key: str, body_json: str) -> str:
     """
     updateImageInfo  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (TbResourceInfo):
+    - `id` (TbResourceId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `title` (str)
+    - `resource_type` (str)
+    - `resource_sub_type` (str)
+    - `resource_key` (str)
+    - `public_resource_key` (str)
+    - `etag` (str)
+    - `file_name` (str)
+    - `descriptor` (JsonNode)
+    - `name` (str)
+    - `public` (bool)
+    - `link` (str)
+    - `public_link` (str)
     """
     try:
         client = get_client()

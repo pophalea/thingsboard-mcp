@@ -145,6 +145,28 @@ def save_self_registration_params(body_json: str = None) -> str:
     Create Or Update Self Registration parameters (saveSelfRegistrationParams)  # noqa: E501
 
 Creates or Updates the Self Registration parameters. When creating, platform generates Admin Settings Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Admin Settings Id will be present in the response. Specify existing Admin Settings Id to update the Self Registration parameters. Referencing non-existing Admin Settings Id will cause 'Not Found' error.  Self Registration allows users to signup for using the platform and automatically create a Customer account for them. You may configure default dashboard and user roles that will be assigned for this Customer. This allows you to build out-of-the-box solutions for customers. Ability to white-label the login and main pages helps to brand the platform.  Available for users with 'TENANT_ADMIN' authority.  Security check is performed to verify that the user has 'WRITE' permission for the white labeling resource.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (SelfRegistrationParams):
+    - `sign_up_text_message` (str)
+    - `captcha_site_key` (str)
+    - `captcha_version` (str)
+    - `captcha_action` (str)
+    - `show_privacy_policy` (bool)
+    - `show_terms_of_use` (bool)
+    - `admin_settings_id` (str)
+    - `domain_name` (str)
+    - `captcha_secret_key` (str)
+    - `privacy_policy` (str)
+    - `terms_of_use` (str)
+    - `notification_email` (str)
+    - `default_dashboard_id` (str)
+    - `default_dashboard_fullscreen` (bool)
+    - `permissions` (list[GroupPermission])
+    - `pkg_name` (str)
+    - `app_secret` (str)
+    - `app_scheme` (str)
+    - `app_host` (str)
     """
     try:
         client = get_client()

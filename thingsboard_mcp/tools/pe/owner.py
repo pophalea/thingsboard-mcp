@@ -9,6 +9,14 @@ def change_owner_to_customer(owner_id_json: str, entity_id_json: str, body_json:
     Change owner to customer (changeOwnerToCustomer)  # noqa: E501
 
 Tenant/Customer changes Owner to Customer or sub-Customer. Sub-Customer can`t perform this operation!   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (UserId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +37,14 @@ def change_owner_to_tenant(owner_id_json: str, entity_id_json: str, body_json: s
     Change owner to tenant (changeOwnerToTenant)  # noqa: E501
 
 Tenant changes Owner from Customer or sub-Customer to Tenant.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (UserId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

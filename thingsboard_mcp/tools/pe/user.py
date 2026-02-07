@@ -9,6 +9,11 @@ def delete_user(user_id_json: str) -> str:
     Delete User (deleteUser)  # noqa: E501
 
 Deletes the User, it's credentials and all the relations (from and to the User). Referencing non-existing User Id will cause an error.    Security check is performed to verify that the user has 'DELETE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (UserId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +74,11 @@ def get_activation_link(user_id_json: str) -> str:
     Get the activation link (getActivationLink)  # noqa: E501
 
 Get the activation link for the user. The base url for activation link is configurable in the general settings of system administrator.    Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (UserId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +99,11 @@ def get_activation_link_info(user_id_json: str) -> str:
     Get the activation link (getActivationLink)  # noqa: E501
 
 Get the activation link for the user. The base url for activation link is configurable in the general settings of system administrator.    Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (UserId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -149,6 +164,11 @@ def get_customer_user_infos(customer_id_json: str, page_size: int, page: int, te
     Get Customer user Infos (getCustomerUserInfos)  # noqa: E501
 
 Returns a page of user info objects owned by the specified customer. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -169,6 +189,11 @@ def get_customer_users(customer_id_json: str, page_size: int, page: int, text_se
     Get Customer Users (getCustomerUsers)  # noqa: E501
 
 Returns a page of users owned by customer. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -227,6 +252,11 @@ def get_user_by_id(user_id_json: str) -> str:
     Get User (getUserById)  # noqa: E501
 
 Fetch the User object based on the provided User Id. If the user has the authority of 'SYS_ADMIN', the server does not perform additional checks. If the user has the authority of 'TENANT_ADMIN', the server checks that the requested user is owned by the same tenant. If the user has the authority of 'CUSTOMER_USER', the server checks that the requested user is owned by the same customer.   Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (UserId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -267,6 +297,11 @@ def get_user_info_by_id(user_id_json: str) -> str:
     Get User info (getUserInfoById)  # noqa: E501
 
 Fetch the User info object based on the provided User Id. If the user has the authority of 'SYS_ADMIN', the server does not perform additional checks. If the user has the authority of 'TENANT_ADMIN', the server checks that the requested user is owned by the same tenant. If the user has the authority of 'CUSTOMER_USER', the server checks that the requested user is owned by the same customer.   Security check is performed to verify that the user has 'READ' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (UserId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -307,6 +342,11 @@ def get_user_token(user_id_json: str) -> str:
     Get User Token (getUserToken)  # noqa: E501
 
 Returns the token of the User based on the provided User Id. If the user who performs the request has the authority of 'SYS_ADMIN', it is possible to get the token of any tenant administrator. If the user who performs the request has the authority of 'TENANT_ADMIN', it is possible to get the token of any customer user that belongs to the same tenant.   # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (UserId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -347,6 +387,11 @@ def get_users_by_entity_group_id(entity_group_id_json: str, page_size: int, page
     Get users by Entity Group Id (getUsersByEntityGroupId)  # noqa: E501
 
 Returns a page of user objects that belongs to specified Entity Group Id. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.    Security check is performed to verify that the user has 'READ' permission for specified group.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityGroupId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -387,6 +432,11 @@ def get_users_for_assign(alarm_id_json: str, page_size: int, page: int, text_sea
     Get usersForAssign (getUsersForAssign)  # noqa: E501
 
 Returns page of user data objects that can be assigned to provided alarmId. Search is been executed by email, firstName and lastName fields. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (AlarmId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -427,6 +477,9 @@ def put_user_settings(body_json: str) -> str:
     Update user settings (saveUserSettings)  # noqa: E501
 
 Update user settings for authorized user. Only specified json elements will be updated.Example: you have such settings: {A:5, B:{C:10, D:20}}. Updating it with {B:{C:10, D:30}} will result in{A:5, B:{C:10, D:30}}. The same could be achieved by putting {B.D:30}  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (JsonNode):
     """
     try:
         client = get_client()
@@ -465,6 +518,11 @@ def report_user_dashboard_action(dashboard_id_json: str, action: str) -> str:
     Report action of User over the dashboard (reportUserDashboardAction)  # noqa: E501
 
 Report action of User over the dashboard.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DashboardId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -503,6 +561,26 @@ def save_user(body_json: str = None, send_activation_mail: Optional[bool] = None
     Save Or update User (saveUser)  # noqa: E501
 
 Create or update the User. When creating user, platform generates User Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created User Id will be present in the response. Specify existing User Id to update the device. Referencing non-existing User Id will cause 'Not Found' error.  Device email is unique for entire platform setup.  Remove 'id', 'tenantId' and optionally 'customerId' from the request body example (below) to create new User entity. Security check is performed to verify that the user has 'WRITE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (User):
+    - `id` (UserId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `customer_id` (CustomerId)
+    - `email` (str)
+    - `authority` (str)
+    - `first_name` (str)
+    - `last_name` (str)
+    - `phone` (str)
+    - `custom_menu_id` (CustomMenuId)
+    - `version` (int)
+    - `name` (str)
+    - `owner_id` (EntityId)
+    - `additional_info` (JsonNode)
+    Expected JSON Structure (EntityGroupId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -523,6 +601,9 @@ def save_user_settings(body_json: str) -> str:
     Save user settings (saveUserSettings)  # noqa: E501
 
 Save user settings represented in json format for authorized user.   # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (JsonNode):
     """
     try:
         client = get_client()
@@ -563,6 +644,11 @@ def set_user_credentials_enabled(user_id_json: str, user_credentials_enabled: Op
     Enable/Disable User credentials (setUserCredentialsEnabled)  # noqa: E501
 
 Enables or Disables user credentials. Useful when you would like to block user account without deleting it. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' or 'CUSTOMER_USER' authority. Security check is performed to verify that the user has 'WRITE' permission for the entity (entities).  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (UserId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

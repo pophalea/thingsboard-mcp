@@ -9,6 +9,11 @@ def delete_widget_type(widget_type_id_json: str) -> str:
     Delete widget type (deleteWidgetType)  # noqa: E501
 
 Deletes the  Widget Type. Referencing non-existing Widget Type Id will cause an error.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetTypeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def get_bundle_widget_type_fqns(widgets_bundle_id_json: str) -> str:
     Get all Widget type fqns for specified Bundle (getBundleWidgetTypeFqns)  # noqa: E501
 
 Returns an array of Widget Type fqns that belong to specified Widget Bundle.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetsBundleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +59,11 @@ def get_bundle_widget_types(widgets_bundle_id_json: str) -> str:
     Get all Widget types for specified Bundle (getBundleWidgetTypes)  # noqa: E501
 
 Returns an array of Widget Type objects that belong to specified Widget Bundle.Widget Type represents the template for widget creation. Widget Type and Widget are similar to class and object in OOP theory.   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetsBundleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +104,11 @@ def get_bundle_widget_types_details(widgets_bundle_id_json: str, inline_images: 
     Get all Widget types details for specified Bundle (getBundleWidgetTypesDetails)  # noqa: E501
 
 Returns an array of Widget Type Details objects that belong to specified Widget Bundle.Widget Type Details extend Widget Type and add image and description properties. Those properties are useful to edit the Widget Type but they are not required for Dashboard rendering.    Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetsBundleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -129,6 +149,11 @@ def get_bundle_widget_types_infos(widgets_bundle_id_json: str, page_size: int, p
     Get Widget Type Info objects (getBundleWidgetTypesInfos)  # noqa: E501
 
 Get the Widget Type Info objects based on the provided parameters. Widget Type Info is a lightweight object that represents Widget Type but does not contain the heavyweight widget descriptor JSON  Available for any authorized user.   # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetsBundleId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -209,6 +234,11 @@ def get_widget_type_by_id(widget_type_id_json: str, inline_images: Optional[bool
     Get Widget Type Details (getWidgetTypeById)  # noqa: E501
 
 Get the Widget Type Details based on the provided Widget Type Id. Widget Type Details extend Widget Type and add image and description properties. Those properties are useful to edit the Widget Type but they are not required for Dashboard rendering.   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetTypeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -229,6 +259,11 @@ def get_widget_type_info_by_id(widget_type_id_json: str) -> str:
     Get Widget Type Info (getWidgetTypeInfoById)  # noqa: E501
 
 Get the Widget Type Info based on the provided Widget Type Id. Widget Type Details extend Widget Type and add image and description properties. Those properties are useful to edit the Widget Type but they are not required for Dashboard rendering.   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetTypeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -269,6 +304,21 @@ def save_widget_type(body_json: str = None, update_existing_by_fqn: Optional[boo
     Create Or Update Widget Type (saveWidgetType)  # noqa: E501
 
 Create or update the Widget Type. Widget Type represents the template for widget creation. Widget Type and Widget are similar to class and object in OOP theory. When creating the Widget Type, platform generates Widget Type Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created Widget Type Id will be present in the response. Specify existing Widget Type id to update the Widget Type. Referencing non-existing Widget Type Id will cause 'Not Found' error.  Widget Type fqn is unique in the scope of System or Tenant. Special Tenant Id '13814000-1dd2-11b2-8080-808080808080' is automatically used if the create request is sent by user with 'SYS_ADMIN' authority.Remove 'id', 'tenantId' rom the request body example (below) to create new Widget Type entity.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (WidgetTypeDetails):
+    - `fqn` (str)
+    - `name` (str)
+    - `deprecated` (bool)
+    - `image` (str)
+    - `description` (str)
+    - `descriptor` (JsonNode)
+    - `id` (WidgetTypeId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `scada` (bool)
+    - `version` (int)
+    - `tags` (list[str])
     """
     try:
         client = get_client()

@@ -149,6 +149,12 @@ def save_o_auth2_info(body_json: str = None) -> str:
     Save OAuth2 settings (saveOAuth2Info)  # noqa: E501
 
   Available for users with 'SYS_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (OAuth2Info):
+    - `enabled` (bool)
+    - `edge_enabled` (bool)
+    - `oauth2_params_infos` (list[OAuth2ParamsInfo])
     """
     try:
         client = get_client()

@@ -9,6 +9,11 @@ def download_jks_resource_if_changed(resource_id_json: str, if_none_match: str =
     Download JKS Resource (downloadJksResourceIfChanged)  # noqa: E501
 
 Download Resource based on the provided Resource Id or return 304 status code if resource was not changed.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def download_js_resource_if_changed(resource_id_json: str, if_none_match: str = 
     Download JS Resource (downloadJsResourceIfChanged)  # noqa: E501
 
 Download Resource based on the provided Resource Id or return 304 status code if resource was not changed.  Available for any authorized user.   # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +59,11 @@ def download_lwm2m_resource_if_changed(resource_id_json: str, if_none_match: str
     Download LWM2M Resource (downloadLwm2mResourceIfChanged)  # noqa: E501
 
 Download Resource based on the provided Resource Id or return 304 status code if resource was not changed.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +84,11 @@ def download_pkcs12_resource_if_changed(resource_id_json: str, if_none_match: st
     Download PKCS_12 Resource (downloadPkcs12ResourceIfChanged)  # noqa: E501
 
 Download Resource based on the provided Resource Id or return 304 status code if resource was not changed.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +109,11 @@ def download_resource(resource_id_json: str) -> str:
     Download Resource (downloadResource)  # noqa: E501
 
 Download Resource based on the provided Resource Id.  Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -169,6 +194,11 @@ def get_resource_info_by_id(resource_id_json: str) -> str:
     Get Resource Info (getResourceInfoById)  # noqa: E501
 
 Fetch the Resource Info object based on the provided Resource Id. Resource Info is a lightweight object that includes main information about the Resource excluding the heavyweight data.   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

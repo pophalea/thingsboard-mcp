@@ -49,6 +49,11 @@ def get_calculated_fields_by_entity_id(entity_id_json: str, page_size: int, page
     Get Calculated Fields by Entity Id (getCalculatedFieldsByEntityId)  # noqa: E501
 
 Fetch the Calculated Fields based on the provided Entity Id.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -67,6 +72,11 @@ Fetch the Calculated Fields based on the provided Entity Id.  # noqa: E501
 def get_last_calculated_field_reprocessing_job(id_json: str) -> str:
     """
     getLastCalculatedFieldReprocessingJob  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CalculatedFieldId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -87,6 +97,11 @@ def get_latest_calculated_field_debug_event(calculated_field_id_json: str) -> st
     Get latest calculated field debug event (getLatestCalculatedFieldDebugEvent)  # noqa: E501
 
 Gets latest calculated field debug event for specified calculated field id. Referencing non-existing calculated field id will cause an error.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CalculatedFieldId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -107,6 +122,11 @@ def reprocess_calculated_field(id_json: str, start_ts: int, end_ts: int) -> str:
     Reprocess Calculated Field (reprocessCalculatedField)  # noqa: E501
 
 Reprocesses the calculated field.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CalculatedFieldId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -147,6 +167,11 @@ def validate_calculated_field_reprocessing(id_json: str) -> str:
     Validate reprocessing capability of a calculated field (validateCalculatedFieldReprocessing)  # noqa: E501
 
 Checks whether the specified calculated field can be reprocessed. Returns a validation result indicating if reprocessing is allowed and, if not, provides a reason.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CalculatedFieldId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

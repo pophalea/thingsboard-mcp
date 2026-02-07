@@ -9,6 +9,11 @@ def delete_device_profile(device_profile_id_json: str) -> str:
     Delete device profile (deleteDeviceProfile)  # noqa: E501
 
 Deletes the device profile. Referencing non-existing device profile Id will cause an error. Can't delete the device profile if it is referenced by existing devices.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +34,11 @@ def get_attributes_keys(device_profile_id_json: str = None) -> str:
     Get attribute keys (getAttributesKeys)  # noqa: E501
 
 Get a set of unique attribute keys used by devices that belong to specified profile. If profile is not set returns a list of unique keys among all profiles. The call is used for auto-complete in the UI forms. The implementation limits the number of devices that participate in search to 100 as a trade of between accurate results and time-consuming queries.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +79,11 @@ def get_device_profile_by_id(device_profile_id_json: str, inline_images: Optiona
     Get Device Profile (getDeviceProfileById)  # noqa: E501
 
 Fetch the Device Profile object based on the provided Device Profile Id. The server checks that the device profile is owned by the same tenant.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -89,6 +104,11 @@ def get_device_profile_info_by_id(device_profile_id_json: str) -> str:
     Get Device Profile Info (getDeviceProfileInfoById)  # noqa: E501
 
 Fetch the Device Profile Info object based on the provided Device Profile Id. Device Profile Info is a lightweight object that includes main information about Device Profile excluding the heavyweight configuration object.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -189,6 +209,11 @@ def get_timeseries_keys(device_profile_id_json: str = None) -> str:
     Get time-series keys (getTimeseriesKeys)  # noqa: E501
 
 Get a set of unique time-series keys used by devices that belong to specified profile. If profile is not set returns a list of unique keys among all profiles. The call is used for auto-complete in the UI forms. The implementation limits the number of devices that participate in search to 100 as a trade of between accurate results and time-consuming queries.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -229,6 +254,11 @@ def set_default_device_profile(device_profile_id_json: str) -> str:
     Make Device Profile Default (setDefaultDeviceProfile)  # noqa: E501
 
 Marks device profile as default within a tenant scope.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (DeviceProfileId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

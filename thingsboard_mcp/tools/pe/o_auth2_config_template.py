@@ -9,6 +9,11 @@ def delete_client_registration_template(client_registration_template_id_json: st
     Delete OAuth2 client registration template by id (deleteClientRegistrationTemplate)  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
 
 Client registration template is OAuth2 provider configuration template with default settings for registering new OAuth2 clients  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EntityId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +54,26 @@ def save_client_registration_template(body_json: str = None) -> str:
     Create or update OAuth2 client registration template (saveClientRegistrationTemplate)  Available for users with 'SYS_ADMIN' authority.  # noqa: E501
 
 Client registration template is OAuth2 provider configuration template with default settings for registering new OAuth2 clients  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (OAuth2ClientRegistrationTemplate):
+    - `id` (OAuth2ClientRegistrationTemplateId)
+    - `created_time` (int)
+    - `provider_id` (str)
+    - `mapper_config` (OAuth2MapperConfig)
+    - `authorization_uri` (str)
+    - `access_token_uri` (str)
+    - `scope` (list[str])
+    - `user_info_uri` (str)
+    - `user_name_attribute_name` (str)
+    - `jwk_set_uri` (str)
+    - `client_authentication_method` (str)
+    - `comment` (str)
+    - `login_button_icon` (str)
+    - `login_button_label` (str)
+    - `help_link` (str)
+    - `name` (str)
+    - `additional_info` (JsonNode)
     """
     try:
         client = get_client()

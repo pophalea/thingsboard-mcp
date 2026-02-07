@@ -9,6 +9,11 @@ def get_queue_stats_by_id(queue_stats_id_json: str) -> str:
     Get Queue stats entity by id (getQueueStatsById)  # noqa: E501
 
 Fetch the Queue stats object based on the provided Queue stats id.   Available for users with 'SYS_ADMIN' or 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (QueueId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()

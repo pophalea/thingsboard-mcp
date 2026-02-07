@@ -9,6 +9,14 @@ def assign_edge_to_customer(customer_id_json: str, edge_id_json: str) -> str:
     Assign edge to customer (assignEdgeToCustomer)  # noqa: E501
 
 Creates assignment of the edge to customer. Customer will be able to query edge afterwards.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -29,6 +37,11 @@ def assign_edge_to_public_customer(edge_id_json: str) -> str:
     Make edge publicly available (assignEdgeToPublicCustomer)  # noqa: E501
 
 Edge will be available for non-authorized (not logged-in) users. This is useful to create dashboards that you plan to share/embed on a publicly available website. However, users that are logged-in and belong to different tenant will not be able to access the edge.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -49,6 +62,11 @@ def delete_edge(edge_id_json: str) -> str:
     Delete edge (deleteEdge)  # noqa: E501
 
 Deletes the edge. Referencing non-existing edge Id will cause an error.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -69,6 +87,12 @@ def find_by_query_v2(body_json: str = None) -> str:
     Find related edges (findByQuery)  # noqa: E501
 
 Returns all edges that are related to the specific entity. The entity id, relation type, edge types, depth of the search, and other query parameters defined using complex 'EdgeSearchQuery' object. See 'Model' tab of the Parameters for more info.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeSearchQuery):
+    - `parameters` (RelationsSearchParameters)
+    - `relation_type` (str)
+    - `edge_types` (list[str])
     """
     try:
         client = get_client()
@@ -89,6 +113,11 @@ def find_missing_to_related_rule_chains(edge_id_json: str) -> str:
     Find missing rule chains (findMissingToRelatedRuleChains)  # noqa: E501
 
 Returns list of rule chains ids that are not assigned to particular edge, but these rule chains are present in the already assigned rule chains to edge.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -109,6 +138,11 @@ def get_customer_edge_infos(customer_id_json: str, page_size: int, page: int, ty
     Get Customer Edge Infos (getCustomerEdgeInfos)  # noqa: E501
 
 Returns a page of edges info objects assigned to customer. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details. Edge Info is an extension of the default Edge object that contains information about the assigned customer name.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -129,6 +163,11 @@ def get_customer_edges(customer_id_json: str, page_size: int, page: int, type: O
     Get Customer Edges (getCustomerEdges)  # noqa: E501
 
 Returns a page of edges objects assigned to customer. You can specify parameters to filter the results. The result is wrapped with PageData object that allows you to iterate over result set using pagination. See the 'Model' tab of the Response Class for more details.   Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (CustomerId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -149,6 +188,11 @@ def get_edge_by_id(edge_id_json: str) -> str:
     Get Edge (getEdgeById)  # noqa: E501
 
 Get the Edge object based on the provided Edge Id. If the user has the authority of 'Tenant Administrator', the server checks that the edge is owned by the same tenant. If the user has the authority of 'Customer User', the server checks that the edge is assigned to the same customer.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -169,6 +213,11 @@ def get_edge_info_by_id(edge_id_json: str) -> str:
     Get Edge Info (getEdgeInfoById)  # noqa: E501
 
 Get the Edge Info object based on the provided Edge Id. If the user has the authority of 'Tenant Administrator', the server checks that the edge is owned by the same tenant. If the user has the authority of 'Customer User', the server checks that the edge is assigned to the same customer.  Available for users with 'TENANT_ADMIN' or 'CUSTOMER_USER' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -189,6 +238,11 @@ def get_edge_install_instructions(edge_id_json: str, method: str) -> str:
     Get Edge Install Instructions (getEdgeInstallInstructions)  # noqa: E501
 
 Get an install instructions for provided edge id.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -349,6 +403,11 @@ def is_edge_upgrade_available(edge_id_json: str) -> str:
     Is edge upgrade enabled (isEdgeUpgradeAvailable)  # noqa: E501
 
 Returns 'true' if upgrade available for connected edge, 'false' - otherwise.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -389,6 +448,11 @@ def process_edges_bulk_import(body_json: str = None) -> str:
     Import the bulk of edges (processEdgesBulkImport)  # noqa: E501
 
 There's an ability to import the bulk of edges using the only .csv file.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (BulkImportRequest):
+    - `file` (str)
+    - `mapping` (Mapping)
     """
     try:
         client = get_client()
@@ -409,6 +473,21 @@ def save_edge(body_json: str = None) -> str:
     Create Or Update Edge (saveEdge)  # noqa: E501
 
 Create or update the Edge. When creating edge, platform generates Edge Id as [time-based UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_1_(date-time_and_MAC_address)). The newly created edge id will be present in the response. Specify existing Edge id to update the edge. Referencing non-existing Edge Id will cause 'Not Found' error.  Edge name is unique in the scope of tenant. Use unique identifiers like MAC or IMEI for the edge names and non-unique 'label' field for user-friendly visualization purposes.Remove 'id', 'tenantId' and optionally 'customerId' from the request body example (below) to create new Edge entity.   Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (Edge):
+    - `id` (EdgeId)
+    - `created_time` (int)
+    - `tenant_id` (TenantId)
+    - `customer_id` (CustomerId)
+    - `root_rule_chain_id` (RuleChainId)
+    - `name` (str)
+    - `type` (str)
+    - `label` (str)
+    - `routing_key` (str)
+    - `secret` (str)
+    - `version` (int)
+    - `additional_info` (JsonNode)
     """
     try:
         client = get_client()
@@ -429,6 +508,14 @@ def set_edge_root_rule_chain(edge_id_json: str, rule_chain_id_json: str) -> str:
     Set root rule chain for provided edge (setEdgeRootRuleChain)  # noqa: E501
 
 Change root rule chain of the edge to the new provided rule chain.  This operation will send a notification to update root rule chain on remote edge service.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
+    Expected JSON Structure (RuleChainId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -449,6 +536,11 @@ def sync_edge(edge_id_json: str) -> str:
     Sync edge (syncEdge)  # noqa: E501
 
 Starts synchronization process between edge and cloud.  All entities that are assigned to particular edge are going to be send to remote edge service.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
@@ -469,6 +561,11 @@ def unassign_edge_from_customer(edge_id_json: str) -> str:
     Unassign edge from customer (unassignEdgeFromCustomer)  # noqa: E501
 
 Clears assignment of the edge to customer. Customer will not be able to query edge afterwards.  Available for users with 'TENANT_ADMIN' authority.  # noqa: E501
+
+    ---------------------------
+    Expected JSON Structure (EdgeId):
+    - `id` (str)
+    - `entity_type` (str)
     """
     try:
         client = get_client()
